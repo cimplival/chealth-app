@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ asset('css/components/side-panels.css') }}">
         <link rel="stylesheet" href="{{ asset('css/components/forms.css') }}">
         <link rel="stylesheet" href="{{ asset('css/components/lists.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/theme.css') }}">
 
         <!-- scripts -->
         <script src="{{ asset('js/phonon.js') }}"></script>
