@@ -40,7 +40,7 @@
             <li>
                 <i class="pull-right icon icon-expand-more"></i>
                 <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->toFormattedDateString() }}</a>
-                <div class="accordion-content" style="border: 2px solid grey">
+                <div class="accordion-content bd-clinical">
                     <div class="padded-top">
                         @if($clinical->complaint)
                         <h5 style="padding-top: 25px;"><strong>Complaints</strong></h5>

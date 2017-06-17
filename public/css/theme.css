@@ -204,3 +204,6 @@
 .dark-negative {
   background-color: #c20900 !important;
 }
+.bd-clinical {
+  border: 2px solid grey;
+}
