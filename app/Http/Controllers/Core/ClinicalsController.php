@@ -54,8 +54,12 @@ class ClinicalsController extends Controller
 
         $page = 'Medical Records';
 
+        $allpatients = Patient::get();
 
-        return view('core.pages.records', compact('patients', 'page'));
+        $no_of_patients = count($allpatients);
+
+
+        return view('core.pages.records', compact('patients', 'page', 'no_of_patients'));
 
     }
 
