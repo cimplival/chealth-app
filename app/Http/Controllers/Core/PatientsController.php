@@ -77,7 +77,9 @@ class PatientsController extends Controller
 
         $clinical = Clinical::where('patient_id', $id)->first();
 
-        return view('core.pages.view', compact('page', 'clinical', 'patient'));
+        $waitlist = Waiting::where('patient_id', $id)->where('status', 1)->first();
+
+        return view('core.pages.view', compact('page', 'clinical', 'patient', 'waitlist'));
     }
 
     public function viewrecord($id)

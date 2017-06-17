@@ -70,9 +70,10 @@
                         @endif
                     </div>
                     <ul class="list">
-                        <li>
+                        <li class="text-center">
                             <a href="{{ url('update-history', $clinical->id) }}" class="pull-left icon icon-edit primary" style="color: white;"></a>
-                            <a href="{{ url('update-history', $clinical->id) }}" class="text-center"><span class="padded-list">UPDATE HISTORY</span></a>
+                            Created on {{ \Carbon\Carbon::parse($clinical->created_at)->toDayDateTimeString() }}
+                            <a href="{{ url('update-history', $clinical->id) }}" class="pull-right icon icon-close"></a>
                         </li>
                     </ul>
                 </div>

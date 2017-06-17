@@ -29,4 +29,14 @@ class WaitingController extends Controller
 
     	return view('core.pages.waiting', compact('page', 'waitings'));
     }
+
+    public function waitlist(Request $request, $id)
+    {
+        $waiting = Waiting::create([
+                'patient_id' => $id,
+                'status'     => 1,
+            ]);
+
+        return redirect('waiting')->with('success', 'Patient added to waitlist.');
+    }
 }

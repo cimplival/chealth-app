@@ -17,9 +17,9 @@ class ClinicalsController extends Controller
 
         $no_of_patients = count($patients);
 
-        $page = 'Medical Records ('. $no_of_patients .')';
+        $page = 'cHealth';
 
-    	return view('core.pages.records', compact('page', 'patients'));
+    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients'));
     }
 
     public function search(Request $request)

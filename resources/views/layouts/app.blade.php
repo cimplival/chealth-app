@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+        <link rel="icon" href="{{ asset('chealth.ico') }}" type="image/x-icon" />
 
         <title>cHealth</title>
 
@@ -25,14 +26,14 @@
             <header class="header-bar">
                 <button class="btn pull-right icon icon-close show-for-phone-only" data-side-panel-close="true"></button>
                 <div class="pull-left">
-                    <h1 class="title">cHealth Menu</h1>
+                    <h4 class="title">Menu</h4>
                 </div>
             </header>
             <div class="content">
                 <ul class="list">
                     <li><a class="padded-list" href="{{ url('register') }}">Register Patient</a></li>
                     <li><a class="padded-list" href="{{ url('waiting') }}">Waiting Patients</a></li>
-                    <li><a class="padded-list" href="{{ url('search') }}">Medical Records</a></li>
+                    <li><a class="padded-list" href="{{ url('/') }}">Medical Records</a></li>
                 </ul>
             </div>
         </div>

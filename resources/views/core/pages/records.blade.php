@@ -21,10 +21,10 @@
 @endsection
 
 @section('body')
-    <form method="POST" action="{{ url('/search') }}">
+    <form method="POST" action="{{ url('/') }}">
     {{ csrf_field() }}
         <div class="padded-full">
-            <input type="text" name="search" placeholder="Search patient here..." autofocus>
+            <input type="text" name="search" placeholder="Search patient here...(out of {{ $no_of_patients }} patients)" autofocus>
         </div>
         <div class="padded-full">
             <button type="submit" class="btn fit-parent primary">Search</button>

@@ -33,14 +33,14 @@ Route::post('/update-patient', 'Core\PatientsController@postupdatepatient');
 
 Route::get('/waiting', 'Core\WaitingController@index');
 
-
+Route::get('/waitlist/{id}', 'Core\WaitingController@waitlist');
 
 /*	Clinicals Routes
 |--------------------------------------------------------------------------| */
 
-Route::get('/search', 'Core\ClinicalsController@index')->name('home');
+Route::get('/', 'Core\ClinicalsController@index')->name('home');
 
-Route::post('/search', 'Core\ClinicalsController@search');
+Route::post('/', 'Core\ClinicalsController@search');
 
 Route::get('/history/{id}', 'Core\ClinicalsController@history');
 
