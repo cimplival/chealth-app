@@ -1,5 +1,5 @@
 @if (count($errors) > 0)
-<div class="notification" id="notify-chealth" data-timeout="10000">
+<div class="notification" id="notify-chealth" data-timeout="5000">
 	<div class="progress">
 		<div class="determinate"></div>
 	</div>

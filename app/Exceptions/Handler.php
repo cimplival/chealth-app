@@ -42,9 +42,30 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
-    public function render($request, Exception $exception)
+    public function render($request, Exception $e)
     {
-        return parent::render($request, $exception);
+        if ($e instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
+        {
+            return redirect('/')->with('info', 'Sorry, Page not found.');
+        }
+
+        switch($e){
+            case ($e instanceof ModelNotFoundException):
+               return redirect('/')->with('error', 'Sorry, Page not found.');
+            break;
+            case ($e instanceof \Illuminate\Session\TokenMismatchException):
+               return redirect()
+                  ->back()
+                  ->withInput($request->except('_token'))
+                  ->withMessage('Sorry, the form you used expired. Kindly, re-enter all the details again in the form.');
+            break;
+            case ($e instanceof ErrorException):
+                return redirect('/')
+                >withMessage('Sorry, the session expired. Kindly, Redo your action.');
+            break;
+            default:
+                return parent::render($request, $e);
+        }
     }
 
     /**
@@ -60,6 +81,19 @@ class Handler extends ExceptionHandler
             return response()->json(['error' => 'Unauthenticated.'], 401);
         }
 
-        return redirect()->guest(route('login'));
+        return redirect()->guest(route('/'));
+    }
+
+    protected function renderException($e)
+    {
+
+        switch ($e){
+            case ($e instanceof ModelNotFoundException):
+               return response()->redirect('/')->with('error', 'Sorry, Page not found!');
+            break;
+            default:
+                return response()->redirect('/')->with('error', 'Sorry, Page not found!');
+        }
+
     }
 }

@@ -39,8 +39,8 @@
         <ul class="list">
             <li>
                 <i class="pull-right icon icon-expand-more"></i>
-                <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->diffForHumans() }}</a>
-                <div class="accordion-content">
+                <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->toFormattedDateString() }}</a>
+                <div class="accordion-content" style="border: 2px solid grey">
                     <div class="padded-top">
                         @if($clinical->complaint)
                         <h5 style="padding-top: 25px;"><strong>Complaints</strong></h5>
@@ -72,8 +72,7 @@
                     <ul class="list">
                         <li class="text-center">
                             <a href="{{ url('update-history', $clinical->id) }}" class="pull-left icon icon-edit primary" style="color: white;"></a>
-                            Created on {{ \Carbon\Carbon::parse($clinical->created_at)->toDayDateTimeString() }}
-                            <a href="{{ url('update-history', $clinical->id) }}" class="pull-right icon icon-close"></a>
+                            <a href="{{ url('confirm-history', $clinical->id) }}" class="pull-right icon icon-close primary" style="color: white;"></a>
                         </li>
                     </ul>
                 </div>
@@ -88,7 +87,7 @@
     @endif
     <a href="{{ url('update-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent">UPDATE Patient Details</button></a>
 
-    <a href="{{ url('history', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent negative">Delete Medical Record</button></a>
+    <a href="{{ url('confirm-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent negative">Delete Medical Record</button></a>
 </div>
 @endsection
 

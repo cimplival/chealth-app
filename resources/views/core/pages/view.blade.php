@@ -9,6 +9,7 @@
         <li><strong>Phone:</strong> {{ $patient->phone }}</li>
 
     </ul>
+    
     @if($clinical)
     <h6 class="pull-right"><strong></strong></h6>
     <a href="{{ url('view-record', $patient->id) }}">
@@ -24,10 +25,10 @@
         <a href="{{ url('waitlist', $patient->id) }}">
             <button class="btn fit-parent" style="margin-top: 15px;">Add to Waitlist</button>
         </a>
+    @else
+        <a href="{{ url('consult', $patient->id) }}">
+            <button class="btn fit-parent primary" style="margin-top: 15px;">Consult Patient</button>
+        </a>
     @endif
-
-    <a href="{{ url('consult', $patient->id) }}">
-        <button class="btn fit-parent primary" style="margin-top: 15px;">Consult Patient</button>
-    </a>
 </div>
 @endsection

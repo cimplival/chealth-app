@@ -28,6 +28,10 @@ Route::get('/update-patient/{id}', 'Core\PatientsController@updatepatient');
 
 Route::post('/update-patient', 'Core\PatientsController@postupdatepatient');
 
+Route::get('/confirm-patient/{id}', 'Core\PatientsController@deletepatient');
+
+Route::post('/delete-patient', 'Core\PatientsController@postdeletepatient');
+
 /*	Waiting Routes
 |--------------------------------------------------------------------------| */
 
@@ -49,3 +53,8 @@ Route::post('/new-history', 'Core\ClinicalsController@new');
 Route::get('/update-history/{id}', 'Core\ClinicalsController@update');
 
 Route::post('/update-history', 'Core\ClinicalsController@updatehistory');
+
+Route::get('/confirm-history/{id}', 'Core\ClinicalsController@deletehistory');
+
+Route::post('/delete-history', 'Core\ClinicalsController@postdeletehistory');
+

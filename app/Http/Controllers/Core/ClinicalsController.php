@@ -131,4 +131,34 @@ class ClinicalsController extends Controller
 
         return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history updated successfully.');
     }
+
+    public function deletehistory(Request $request, $id)
+    {
+        $clinical = Clinical::whereId($id)->first();
+
+        $page = 'Delete Clinical History';
+
+        return view('core.pages.delete-history', compact('page', 'clinical'));
+    }
+
+    public function postdeletehistory(Request $request)
+    {   
+         $this->validate($request, [
+            'clinical_id'  => 'required|numeric|min:1',
+        ]);
+
+        $clinical_id   = $request->input('clinical_id');
+
+        $patient_id = Clinical::where('id', $clinical_id)->value('patient_id');
+
+        $page = 'Clinical History';
+
+        $patient = Patient::whereId($patient_id)->first();
+
+        Clinical::whereId($clinical_id)->delete();
+
+        $clinicals = Clinical::where('patient_id', $patient->id)->get();
+
+        return view('core.pages.clinical', compact('page', 'clinicals', 'patient'))->with('success', 'Clinical history deleted successfully.');
+    }
 }
