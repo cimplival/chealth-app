@@ -25,7 +25,10 @@
 {{ csrf_field() }}
 	<input id="register_status" type="hidden" name="register_only" value="0">
 	<div class="padded-full">
-		<input type="text" name="name" value="{{ old('name') }}" placeholder="Patient Name" autofocus>
+		<input type="text" name="po_no" value="{{ old('po_no') }}" placeholder="PO No." autofocus>
+	</div>
+	<div class="padded-full">
+		<input type="text" name="name" value="{{ old('name') }}" placeholder="Patient Name">
 	</div>
 	<div class="padded-full">
 		<input type="text" name="age" value="{{ old('age') }}" placeholder="Age">
@@ -50,9 +53,6 @@
 	</div>
 	<div class="padded-full">
 		<input type="text" name="phone" value="{{ old('phone') }}" placeholder="Phone">
-	</div>
-	<div class="padded-full">
-		<input type="text" name="po_no" value="{{ old('po_no') }}" placeholder="P/O No.">
 	</div>
 	<div class="padded-full">
 		<button type="submit" onclick="register()" class="btn fit-parent">Register Only</button>

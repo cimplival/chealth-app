@@ -24,7 +24,7 @@
 @section('body')
 <div class="padded-full">
     <ul class="list">
-        <li><strong>Name:</strong> {{ $patient->name }}</li>
+        <li><strong>PO No:</strong> {{ $patient->po_no }}</li>
         <li><strong>Age:</strong> {{ $patient->age }} years old</li>
         <li><strong>Gender:</strong> {{ $patient->gender }}</li>
         <li><strong>Phone:</strong> {{ $patient->phone }}</li>
@@ -42,31 +42,33 @@
                 <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->toFormattedDateString() }}</a>
                 <div class="accordion-content bd-clinical">
                     <div class="padded-top">
+
                         @if($clinical->complaint)
-                        <h5 style="padding-top: 25px;"><strong>Complaints</strong></h5>
+                            <h5 style="padding-top: 25px;"><strong>Complaints:</strong></h5>
+                            <p class="padded-full">
+                                {{$clinical->complaint}}
+                            </p>
+                        @endif
+
+                        @if($clinical->pmshx)
+                        <h5><strong>PMS History:</strong></h5>
                         <p class="padded-full">
-                            {{$clinical->complaint}}
+                            {{$clinical->pmshx}}
                         </p>
-                        @else   
-                        <h5><strong>There were no complaints.</strong></h5>
                         @endif
 
                         @if($clinical->lab_test)
-                        <h5><strong>Lab Test</strong></h5>
-                        <p class="padded-full">
-                            {{$clinical->lab_test}}
-                        </p>
-                        @else   
-                        <h5><strong>There were no lab tests.</strong></h5>
+                            <h5><strong>Lab Test:</strong></h5>
+                            <p class="padded-full">
+                                {{$clinical->lab_test}}
+                            </p>
                         @endif
 
                         @if($clinical->treatment)
-                        <h5><strong>Treatment</strong></h5>
-                        <p class="padded-full">
-                            {{$clinical->treatment}}
-                        </p>
-                        @else   
-                        <h5><strong>There were no lab tests.</strong></h5>
+                            <h5><strong>Treatment:</strong></h5>
+                            <p class="padded-full">
+                                {{$clinical->treatment}}
+                            </p>
                         @endif
                     </div>
                     <ul class="list">

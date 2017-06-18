@@ -11,6 +11,12 @@
 		    <textarea name="complaint" value="{{ old('complaint') }}" placeholder="Type here..." autofocus></textarea> 
 		</div>
 		<div class="padded-full">
+		    <h5 class="pull-right">PMS History</h5>
+		</div>
+		<div class="padded-full">
+		    <textarea name="pmshx" value="{{ old('pmshx') }}" placeholder="Type here..." autofocus></textarea> 
+		</div>
+		<div class="padded-full">
 		    <h5 class="pull-right">Lab Tests</h5>
 		</div>
 		<div class="padded-full">

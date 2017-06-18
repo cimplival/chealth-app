@@ -19,12 +19,13 @@ class PatientsController extends Controller
     public function store(Request $request)
     {
     	$this->validate($request, [
+                'po_no'        => 'required|unique:patients',
                 'name'         => 'required|min:1|max:256',
                 'age'          => 'required|min:0|max:125',
-                'gender'       => 'required',
+                'gender'       => 'required'
         ]);
 
-
+        $po_no    = $request->input('po_no');
         $name     = $request->input('name');
         $age      = $request->input('age');
         $gender   = $request->input('gender');
@@ -34,7 +35,8 @@ class PatientsController extends Controller
             'name'       => $name,
             'age'        => $age,
             'gender'     => $gender,
-            'phone'      => $phone
+            'phone'      => $phone,
+            'po_no'      => $po_no
         ]);
 
         $register_only = $request->input('register_only');
@@ -59,21 +61,20 @@ class PatientsController extends Controller
                 'status'     => 0
             ]);
 
-        $page = 'Clinical History';
-
         $clinicals = Clinical::where('patient_id', $id)->get();
 
         $patient = Patient::whereId($id)->first();
+
+        $page = $patient->name;
 
         return view('core.pages.clinical', compact('page', 'clinicals', 'patient'));
     }
 
     public function view($id)
     {
-
         $patient = Patient::where('id', $id)->first();
 
-        $page = 'Medical Records';
+        $page = $patient->name;
 
         $clinical = Clinical::where('patient_id', $id)->first();
 
@@ -84,11 +85,11 @@ class PatientsController extends Controller
 
     public function viewrecord($id)
     {
-        $page = 'Clinical History';
-
         $clinicals = Clinical::where('patient_id', $id)->get();
 
         $patient = Patient::whereId($id)->first();
+
+        $page = $patient->name;
 
         return view('core.pages.view-record', compact('page', 'clinicals', 'patient'));
     }
@@ -105,19 +106,22 @@ class PatientsController extends Controller
     public function postupdatepatient(Request $request)
     {
         $this->validate($request, [
+                'po_no'        => 'required|unique:patients',
                 'patient_id'   => 'required|min:1',
                 'name'         => 'required|min:1|max:256',
                 'age'          => 'required|min:0|max:125',
-                'gender'       => 'required',
+                'gender'       => 'required'
         ]);
 
         $patient_id  = $request->input('patient_id');
+        $po_no       = $request->input('po_no');
         $name        = $request->input('name');
         $age         = $request->input('age');
         $gender      = $request->input('gender');
         $phone       = $request->input('phone');
 
         $patient = Patient::where('id', $patient_id)->update([
+            'po_no'      => $po_no,
             'name'       => $name,
             'age'        => $age,
             'gender'     => $gender,

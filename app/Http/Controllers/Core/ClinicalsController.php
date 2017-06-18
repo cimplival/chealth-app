@@ -17,7 +17,7 @@ class ClinicalsController extends Controller
 
         $no_of_patients = count($patients);
 
-        $page = 'cHealth';
+        $page = 'cHealth.io';
 
     	return view('core.pages.records', compact('page', 'patients', 'no_of_patients'));
     }
@@ -34,10 +34,10 @@ class ClinicalsController extends Controller
     	$query = $request->input('search');
 
         $patients = DB::table('patients')->where('name', 'LIKE', '%' . $query . '%')
-        ->orWhere('age', 'LIKE', '%' . $query . '%')
-        ->orWhere('gender', 'LIKE', '%' . $query . '%')
-        ->orWhere('phone', 'LIKE', '%' . $query . '%')
-        ->get();
+            ->orWhere('age', 'LIKE', '%' . $query . '%')
+            ->orWhere('gender', 'LIKE', '%' . $query . '%')
+            ->orWhere('phone', 'LIKE', '%' . $query . '%')
+            ->get();
 
         if(count($patients)==1)
         {
@@ -80,12 +80,14 @@ class ClinicalsController extends Controller
 
         $patient_id    = $request->input('patient_id');
         $complaint     = $request->input('complaint');
+        $pmshx         = $request->input('pmshx');
         $lab_test      = $request->input('lab_test');
         $treatment     = $request->input('treatment');
 
         Clinical::create([
             'patient_id'      => $patient_id,
             'complaint'       => $complaint,
+            'pmshx'           => $pmshx,
             'lab_test'        => $lab_test,
             'treatment'       => $treatment
         ]);
@@ -118,11 +120,13 @@ class ClinicalsController extends Controller
 
         $clinical_id   = $request->input('clinical_id');
         $complaint     = $request->input('complaint');
+        $pmshx         = $request->input('pmshx');
         $lab_test      = $request->input('lab_test');
         $treatment     = $request->input('treatment');
 
         Clinical::whereId($clinical_id)->update([
             'complaint'       => $complaint,
+            'pmshx'           => $pmshx,
             'lab_test'        => $lab_test,
             'treatment'       => $treatment
         ]);

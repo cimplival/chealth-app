@@ -17,6 +17,7 @@ class CreateClinicalsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id');
             $table->text('complaint')->nullable();
+            $table->text('pmshx')->nullable();
             $table->text('lab_test')->nullable();
             $table->text('treatment')->nullable();
             $table->timestamps();

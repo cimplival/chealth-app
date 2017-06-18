@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clinical extends Model
 {
-    protected $fillable = ['patient_id', 'complaint', 'lab_test', 'treatment'];
+    protected $fillable = ['patient_id', 'pmshx', 'complaint', 'lab_test', 'treatment'];
 
     public function patient()
     {

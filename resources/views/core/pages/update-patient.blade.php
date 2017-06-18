@@ -25,7 +25,10 @@
 	{{ csrf_field() }}
 	<input type="hidden" name="patient_id" value="{{ $patient->id }}">
 	<div class="padded-full">
-		<input type="text" name="name" value="{{ $patient->name }}" autofocus>
+		<input type="text" name="po_no" value="{{ $patient->po_no }}" autofocus>
+	</div>
+	<div class="padded-full">
+		<input type="text" name="name" value="{{ $patient->name }}">
 	</div>
 	<div class="padded-full">
 		<input type="text" name="age" value="{{ $patient->age }}">

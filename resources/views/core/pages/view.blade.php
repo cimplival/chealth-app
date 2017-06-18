@@ -4,7 +4,7 @@
     <div class="padded-full">
 
         <ul class="list">
-            <li><strong>Name:</strong> {{ $patient->name }}</li>
+            <li><strong>PO No.:</strong> {{ $patient->po_no }}</li>
             <li><strong>Age:</strong> {{ $patient->age }} years old</li>
             <li><strong>Gender:</strong> {{ $patient->gender }}</li>
             

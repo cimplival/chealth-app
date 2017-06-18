@@ -10,19 +10,19 @@ class WaitingController extends Controller
 {
     public function index()
     {	
-    	$page = 'Waiting Patients';
+    	$page = 'Queing Patients';
     	$waitings = Waiting::whereStatus(1)->get();
 
     	if(count($waitings)==0)
         {
-            $page = 'No Waiting Patients';
+            $page = 'No Queing Patients';
         }elseif(count($waitings)==1)
         {
-            $message = 'There is 1 waiting patient.';
+            $message = 'There is 1 queing patient.';
         }
         else
         {
-            $message = 'There are ' . count($waitings) . ' waiting patients.';
+            $message = 'There are ' . count($waitings) . ' queing patients.';
         }
 
         //session info to be fixed
