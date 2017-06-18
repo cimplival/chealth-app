@@ -132,7 +132,7 @@ class ClinicalsController extends Controller
         return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history updated successfully.');
     }
 
-    public function deletehistory(Request $request, $id)
+    public function deletehistory($id)
     {
         $clinical = Clinical::whereId($id)->first();
 
@@ -143,7 +143,7 @@ class ClinicalsController extends Controller
 
     public function postdeletehistory(Request $request)
     {   
-         $this->validate($request, [
+        $this->validate($request, [
             'clinical_id'  => 'required|numeric|min:1',
         ]);
 
