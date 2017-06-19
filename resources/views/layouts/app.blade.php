@@ -33,7 +33,7 @@
             <div class="content">
                 <ul class="list">
                     <li><a class="padded-list" href="{{ url('register') }}">Register Patient</a></li>
-                    <li><a class="padded-list" href="{{ url('waiting') }}">Queing Patients</a></li>
+                    <li><a class="padded-list" href="{{ url('waiting') }}">Waiting Patients</a></li>
                     <li><a class="padded-list" href="{{ url('/') }}">Medical Records</a></li>
                 </ul>
             </div>
