@@ -34,6 +34,7 @@ class ClinicalsController extends Controller
     	$query = $request->input('search');
 
         $patients = DB::table('patients')->where('name', 'LIKE', '%' . $query . '%')
+            ->orwhere('op_no', 'LIKE', '%' . $query . '%')
             ->orWhere('age', 'LIKE', '%' . $query . '%')
             ->orWhere('gender', 'LIKE', '%' . $query . '%')
             ->orWhere('phone', 'LIKE', '%' . $query . '%')

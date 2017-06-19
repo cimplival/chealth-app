@@ -13,7 +13,7 @@
 		<ul class="list">
 			@foreach($waitings as $key=>$waiting)
 			<li class="padded-full">
-				<a href="{{ url('view', $waiting->patient->id) }}">{{++$key}}. {{$waiting->patient->name}} since {{ \Carbon\Carbon::parse($waiting->created_at)->diffForHumans() }}
+				<a href="{{ url('view', $waiting->patient->id) }}">{{++$key}}. {{$waiting->patient->name}} (since {{ \Carbon\Carbon::parse($waiting->created_at)->diffForHumans() }})
 				</a>
 			</li>
 			@endforeach

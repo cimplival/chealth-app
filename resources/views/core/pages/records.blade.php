@@ -36,7 +36,7 @@
             @if($patients)
                 @foreach($patients as $patient)
                 <li>
-                    <a class="padded-list" href="{{ url('view', $patient->id)}}">{{$patient->name}}: PO. No: {{$patient->po_no }}</a>
+                    <a class="padded-list" href="{{ url('view', $patient->id)}}">{{$patient->name}}: OP. No: {{$patient->op_no }}</a>
                 </li>
                 @endforeach
             @endif

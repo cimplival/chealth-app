@@ -19,13 +19,13 @@ class PatientsController extends Controller
     public function store(Request $request)
     {
     	$this->validate($request, [
-                'po_no'        => 'required|unique:patients',
+                'op_no'        => 'required|unique:patients',
                 'name'         => 'required|min:1|max:256',
                 'age'          => 'required|min:0|max:125',
                 'gender'       => 'required'
         ]);
 
-        $po_no    = $request->input('po_no');
+        $op_no    = $request->input('op_no');
         $name     = $request->input('name');
         $age      = $request->input('age');
         $gender   = $request->input('gender');
@@ -36,7 +36,7 @@ class PatientsController extends Controller
             'age'        => $age,
             'gender'     => $gender,
             'phone'      => $phone,
-            'po_no'      => $po_no
+            'op_no'      => $op_no
         ]);
 
         $register_only = $request->input('register_only');
@@ -106,7 +106,7 @@ class PatientsController extends Controller
     public function postupdatepatient(Request $request)
     {
         $this->validate($request, [
-                'po_no'        => 'required|unique:patients',
+                'op_no'        => 'required|unique:patients',
                 'patient_id'   => 'required|min:1',
                 'name'         => 'required|min:1|max:256',
                 'age'          => 'required|min:0|max:125',
@@ -114,14 +114,14 @@ class PatientsController extends Controller
         ]);
 
         $patient_id  = $request->input('patient_id');
-        $po_no       = $request->input('po_no');
+        $op_no       = $request->input('op_no');
         $name        = $request->input('name');
         $age         = $request->input('age');
         $gender      = $request->input('gender');
         $phone       = $request->input('phone');
 
         $patient = Patient::where('id', $patient_id)->update([
-            'po_no'      => $po_no,
+            'op_no'      => $op_no,
             'name'       => $name,
             'age'        => $age,
             'gender'     => $gender,

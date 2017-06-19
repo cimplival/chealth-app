@@ -25,7 +25,7 @@
 {{ csrf_field() }}
 	<input id="register_status" type="hidden" name="register_only" value="0">
 	<div class="padded-full">
-		<input type="text" name="po_no" value="{{ old('po_no') }}" placeholder="PO No." autofocus>
+		<input type="text" name="op_no" value="{{ old('op_no') }}" placeholder="OP No." autofocus>
 	</div>
 	<div class="padded-full">
 		<input type="text" name="name" value="{{ old('name') }}" placeholder="Patient Name">
