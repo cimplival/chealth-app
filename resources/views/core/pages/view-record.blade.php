@@ -20,56 +20,76 @@
 
 @endsection
 
-
 @section('body')
 <div class="padded-full">
     <ul class="list">
-        <li><strong>OP No:</strong> {{ $patient->op_no }}</li>
+        <li><strong>Outpatient No:</strong> {{ $patient->op_no }}</li>
         <li><strong>Age:</strong> {{ $patient->age }} years old</li>
         <li><strong>Gender:</strong> {{ $patient->gender }}</li>
+        @if($patient->phone)
         <li><strong>Phone:</strong> {{ $patient->phone }}</li>
+        @endif
+
+        @if($patient->physical_address)
+        <li><strong>Physical Address:</strong> {{ $patient->physical_address }}</li>
+        @endif
     </ul>
     @if($clinicals)
     <ul class="list">
         <li class="divider text-center">Clinical Histories</li>
     </ul>
     @foreach($clinicals->reverse() as $clinical)
-        <ul class="list">
-            <li>
-                <i class="pull-right icon icon-expand-more"></i>
-                <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->diffForHumans() }}</a>
-                <div class="accordion-content bd-clinical">
-                    <div class="padded-top">
-                        @if($clinical->complaint)
-                        <h5 style="padding-top: 25px;"><strong>Complaints</strong></h5>
-                        <p class="padded-full">
-                            {{$clinical->complaint}}
-                        </p>
-                        @else   
-                        <h5><strong>There were no complaints.</strong></h5>
-                        @endif
+    <ul class="list">
+        <li>
+            <i class="pull-right icon icon-expand-more"></i>
+            <a href="#" class="padded-list">Clinical History for {{ \Carbon\Carbon::parse($clinical->created_at)->diffForHumans() }}</a>
+            <div class="accordion-content bd-clinical">
+                <div class="padded-top">
+                    @if($clinical->chief_complaint)
+                    <h5 style="padding-top: 25px;"><strong>Chief Complaint:</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->chief_complaint}}
+                    </p>
+                    @endif
 
-                        @if($clinical->lab_test)
-                        <h5><strong>Lab Test</strong></h5>
-                        <p class="padded-full">
-                            {{$clinical->lab_test}}
-                        </p>
-                        @else   
-                        <h5><strong>There were no lab tests.</strong></h5>
-                        @endif
+                    @if($clinical->review_of_system)
+                    <h5 style="padding-top: 25px;"><strong>Review of System:</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->review_of_system}}
+                    </p>
+                    @endif
 
-                        @if($clinical->treatment)
-                        <h5><strong>Treatment</strong></h5>
-                        <p class="padded-full">
-                            {{$clinical->treatment}}
-                        </p>
-                        @else   
-                        <h5><strong>There were no lab tests.</strong></h5>
-                        @endif
-                    </div>
+                    @if($clinical->pmshx)
+                    <h5><strong>PMSHx:</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->pmshx}}
+                    </p>
+                    @endif
+
+                    @if($clinical->investigations)
+                    <h5><strong>Investigations (Lab/X-ray):</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->investigations}}
+                    </p>
+                    @endif
+
+                    @if($clinical->diagnosis)
+                    <h5><strong>Diagnosis:</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->diagnosis}}
+                    </p>
+                    @endif
+
+                    @if($clinical->management)
+                    <h5><strong>Management:</strong></h5>
+                    <p class="padded-full">
+                        {{$clinical->management}}
+                    </p>
+                    @endif
                 </div>
-            </li>
-        </ul>
+            </div>
+        </li>
+    </ul>
     @endforeach
 
     @else

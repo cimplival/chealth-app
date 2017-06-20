@@ -25,13 +25,10 @@
 	{{ csrf_field() }}
 	<input type="hidden" name="patient_id" value="{{ $patient->id }}">
 	<div class="padded-full">
-		<input type="text" name="op_no" value="{{ $patient->op_no }}" autofocus>
+		<input type="text" name="name" value="{{ $patient->name }}" placeholder="Patient Name">
 	</div>
 	<div class="padded-full">
-		<input type="text" name="name" value="{{ $patient->name }}">
-	</div>
-	<div class="padded-full">
-		<input type="text" name="age" value="{{ $patient->age }}">
+		<input type="text" name="age" value="{{ $patient->age }}" placeholder="Patient Age">
 	</div>
 	<div class="padded-full">
 		<ul class="list">
@@ -52,7 +49,10 @@
 		</ul>
 	</div>
 	<div class="padded-full">
-		<input type="text" name="phone" value="{{ $patient->phone }}">
+		<input type="text" name="phone" value="{{ $patient->phone }}" placeholder="Patient Phone">
+	</div>
+	<div class="padded-full">
+		<input type="text" name="physical_address" value="{{ $patient->physical_address }}" placeholder="Physical Address">
 	</div>
 	<div class="padded-full">
 		<button type="submit" class="btn fit-parent">Update Patient</button>

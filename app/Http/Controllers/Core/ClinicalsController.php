@@ -7,31 +7,35 @@ use cHealth\Http\Controllers\Controller;
 use DB;
 use cHealth\Patient;
 use cHealth\Clinical;
+use cHealth\Waiting;
+use cHealth\Lab;
 use Session;
 
 class ClinicalsController extends Controller
 {
     public function index()
     {	
-        $patients = Patient::get();
+        $patients               = Patient::get();
 
-        $no_of_patients = count($patients);
+        $labs                   = Lab::get();
 
-        $page = 'cHealth.io';
+        $no_of_patients         = count($patients);
 
-    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients'));
+        $page                   = 'cHealth.io';
+
+    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients', 'labs'));
     }
 
     public function search(Request $request)
     {	
     	$this->validate($request, [
-                'search'            => 'required|min:1'
+          'search'              => 'required|min:1'
         ],
         [
-                'search.required'   => 'You need to search a patient.',
+          'search.required'     => 'You need to search a patient.',
         ]);
 
-    	$query = $request->input('search');
+    	$query                  = $request->input('search');
 
         $patients = DB::table('patients')->where('name', 'LIKE', '%' . $query . '%')
             ->orwhere('op_no', 'LIKE', '%' . $query . '%')
@@ -42,22 +46,22 @@ class ClinicalsController extends Controller
 
         if(count($patients)==1)
         {
-            $tense = 'is';
-            $result = 'result.';
+            $tense              = 'is';
+            $result             = 'result.';
         }
         else
         {
-            $tense = 'are';
-            $result = 'results.';
+            $tense              = 'are';
+            $result             = 'results.';
         }
 
-        $message = 'There '. $tense . ' ' . count($patients) . ' patient '. $result;
+        $message                = 'There '. $tense . ' ' . count($patients) . ' patient '. $result;
 
-        $page = 'Medical Records';
+        $page                   = 'Medical Records';
 
-        $allpatients = Patient::get();
-
-        $no_of_patients = count($allpatients);
+        $allpatients            = Patient::get();
+ 
+        $no_of_patients         = count($allpatients);
 
 
         return view('core.pages.records', compact('patients', 'page', 'no_of_patients'));
@@ -66,9 +70,9 @@ class ClinicalsController extends Controller
 
     public function history($id)
     {
-        $patient = Patient::where('id', $id)->first();
+        $patient                = Patient::where('id', $id)->first();
 
-        $page = $patient->name;
+        $page                   = $patient->name;
 
         return view('core.pages.new-history', compact('page', 'patient', 'new-history'));
     }
@@ -76,39 +80,48 @@ class ClinicalsController extends Controller
     public function new(Request $request)
     {
         $this->validate($request, [
-                'patient_id'       => 'required|numeric|min:1',
+                'patient_id'    => 'required|numeric|min:1',
         ]);
 
-        $patient_id    = $request->input('patient_id');
-        $complaint     = $request->input('complaint');
-        $pmshx         = $request->input('pmshx');
-        $lab_test      = $request->input('lab_test');
-        $treatment     = $request->input('treatment');
+        $patient_id             = $request->input('patient_id');
+        $chief_complaint        = $request->input('chief_complaint');
+        $review_of_system       = $request->input('review_of_system');
+        $pmshx                  = $request->input('pmshx');
+        $investigations         = $request->input('investigations');
+        $diagnosis              = $request->input('diagnosis');
+        $management             = $request->input('management');
 
         Clinical::create([
-            'patient_id'      => $patient_id,
-            'complaint'       => $complaint,
-            'pmshx'           => $pmshx,
-            'lab_test'        => $lab_test,
-            'treatment'       => $treatment
+            'patient_id'        => $patient_id,
+            'chief_complaint'   => $chief_complaint,
+            'review_of_system'  => $review_of_system,
+            'pmshx'             => $pmshx,
+            'investigations'    => $investigations,
+            'diagnosis'         => $diagnosis,
+            'management'        => $management
         ]);
 
-        $patient = Patient::whereId($patient_id)->first();
+        Waiting::where('patient_id', $patient_id)
+            ->update([
+                'status'            => 0
+            ]);
 
-        $patient_id = $patient->id;
+        $patient                = Patient::whereId($patient_id)->first();
 
-        $page = $patient->name;
+        $patient_id             = $patient->id;
 
-        $clinicals = Clinical::where('patient_id', $patient_id)->get();
+        $page                   = $patient->name;
+
+        $clinicals              = Clinical::where('patient_id', $patient_id)->get();
 
         return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history saved successfully.');
     }
 
     public function update($id)
     {   
-        $clinical = Clinical::whereId($id)->first();
+        $clinical               = Clinical::whereId($id)->first();
 
-        $page = 'Update Clinical History';
+        $page                   = 'Update Clinical History';
 
         return view('core.pages.update-history', compact('page', 'clinical'));
     }
@@ -116,20 +129,24 @@ class ClinicalsController extends Controller
     public function updatehistory(Request $request)
     {   
         $this->validate($request, [
-            'clinical_id'  => 'required|numeric|min:1',
+            'clinical_id'       => 'required|numeric|min:1',
         ]);
 
-        $clinical_id   = $request->input('clinical_id');
-        $complaint     = $request->input('complaint');
-        $pmshx         = $request->input('pmshx');
-        $lab_test      = $request->input('lab_test');
-        $treatment     = $request->input('treatment');
+        $clinical_id            = $request->input('clinical_id');
+        $chief_complaint        = $request->input('chief_complaint');
+        $review_of_system       = $request->input('review_of_system');
+        $pmshx                  = $request->input('pmshx');
+        $investigations         = $request->input('investigations');
+        $diagnosis              = $request->input('diagnosis');
+        $management             = $request->input('management');
 
         Clinical::whereId($clinical_id)->update([
-            'complaint'       => $complaint,
-            'pmshx'           => $pmshx,
-            'lab_test'        => $lab_test,
-            'treatment'       => $treatment
+            'chief_complaint'   => $chief_complaint,
+            'review_of_system'  => $review_of_system,
+            'pmshx'             => $pmshx,
+            'investigations'    => $investigations,
+            'diagnosis'         => $diagnosis,
+            'management'        => $management
         ]);
 
         $patient_id = Clinical::where('id', $clinical_id)->value('patient_id');
@@ -139,9 +156,9 @@ class ClinicalsController extends Controller
 
     public function deletehistory($id)
     {
-        $clinical = Clinical::whereId($id)->first();
+        $clinical               = Clinical::whereId($id)->first();
 
-        $page = 'Delete Clinical History';
+        $page                   = 'Delete Clinical History';
 
         return view('core.pages.delete-history', compact('page', 'clinical'));
     }
@@ -149,20 +166,20 @@ class ClinicalsController extends Controller
     public function postdeletehistory(Request $request)
     {   
         $this->validate($request, [
-            'clinical_id'  => 'required|numeric|min:1',
+            'clinical_id'       => 'required|numeric|min:1',
         ]);
 
-        $clinical_id   = $request->input('clinical_id');
+        $clinical_id            = $request->input('clinical_id');
+ 
+        $patient_id             = Clinical::where('id', $clinical_id)->value('patient_id');
 
-        $patient_id = Clinical::where('id', $clinical_id)->value('patient_id');
+        $page                   = 'Clinical History';
 
-        $page = 'Clinical History';
-
-        $patient = Patient::whereId($patient_id)->first();
+        $patient                = Patient::whereId($patient_id)->first();
 
         Clinical::whereId($clinical_id)->delete();
 
-        $clinicals = Clinical::where('patient_id', $patient->id)->get();
+        $clinicals              = Clinical::where('patient_id', $patient->id)->get();
 
         return view('core.pages.clinical', compact('page', 'clinicals', 'patient'))->with('success', 'Clinical history deleted successfully.');
     }

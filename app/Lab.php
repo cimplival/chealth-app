@@ -4,9 +4,9 @@ namespace cHealth;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Clinical extends Model
+class Lab extends Model
 {
-    protected $fillable = ['patient_id', 'chief_complaint', 'review_of_system', 'pmshx', 'investigations', 'diagnosis', 'management'];
+    protected $fillable = ['patient_id', 'specimen', 'investigation_request', 'status', 'from_user'];
 
     public function patient()
     {

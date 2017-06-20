@@ -11,9 +11,9 @@
 @section('body')
     <div class="padded-full">
 		<ul class="list">
-			@foreach($waitings as $key=>$waiting)
+			@foreach($labs as $key=>$lab)
 			<li class="padded-full">
-				<a href="{{ url('consult', $waiting->patient->id) }}">{{++$key}}. {{$waiting->patient->name}} (since {{ \Carbon\Carbon::parse($waiting->created_at)->diffForHumans() }})
+				<a href="{{ route('labs.edit', $lab->id) }}">{{++$key}}. {{$lab->patient->name}} (since {{ \Carbon\Carbon::parse($lab->created_at)->diffForHumans() }}) @if($lab->status==0) <sup style="color:green">*New</sup> @endif
 				</a>
 			</li>
 			@endforeach

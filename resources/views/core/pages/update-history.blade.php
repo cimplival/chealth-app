@@ -25,28 +25,40 @@
 		{{ csrf_field() }}
 		<input type="hidden" name="clinical_id" value="{{ $clinical->id }}">
 		<div class="padded-full">
-		    <h5 class="pull-right">Complaints</h5>
+		    <h5 class="pull-right">Chief Complaint</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="complaint" autofocus>{{$clinical->complaint}}</textarea> 
+		    <textarea name="chief_complaint" placeholder="Chief Complaint" autofocus>{{$clinical->chief_complaint}}</textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">PMS History</h5>
+		    <h5 class="pull-right">Review of System</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="pmshx">{{$clinical->pmshx}}</textarea> 
+		    <textarea name="review_of_system" placeholder="Review of System">{{$clinical->review_of_system}}</textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">Lab Tests</h5>
+		    <h5 class="pull-right">PMSHx:</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="lab_test">{{$clinical->lab_test}}</textarea> 
+		    <textarea name="pmshx" placeholder="PMSHx">{{$clinical->pmshx}}</textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">Treatments</h5>
+		    <h5 class="pull-right">Investigations (Lab/ X-ray)</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="treatment">{{$clinical->treatment}}</textarea> 
+		    <textarea name="investigations" placeholder="Investigations">{{$clinical->investigations}}</textarea> 
+		</div>
+		<div class="padded-full">
+		    <h5 class="pull-right">Diagnosis</h5>
+		</div>
+		<div class="padded-full">
+		    <textarea name="diagnosis" placeholder="Diagnosis">{{$clinical->diagnosis}}</textarea> 
+		</div>
+		<div class="padded-full">
+		    <h5 class="pull-right">Management</h5>
+		</div>
+		<div class="padded-full">
+		    <textarea name="management" placeholder="Management">{{$clinical->management}}</textarea> 
 		</div>
 		<div class="padded-full">
 		    <button type="submit" class="btn fit-parent primary">Update Clinical History</button>

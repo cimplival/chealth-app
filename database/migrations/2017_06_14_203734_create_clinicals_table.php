@@ -16,10 +16,12 @@ class CreateClinicalsTable extends Migration
         Schema::create('clinicals', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id');
-            $table->text('complaint')->nullable();
+            $table->text('chief_complaint')->nullable();
+            $table->text('review_of_system')->nullable();
             $table->text('pmshx')->nullable();
-            $table->text('lab_test')->nullable();
-            $table->text('treatment')->nullable();
+            $table->text('investigations')->nullable();
+            $table->text('diagnosis')->nullable();
+            $table->text('management')->nullable();
             $table->timestamps();
         });
     }

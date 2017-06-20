@@ -58,3 +58,18 @@ Route::get('/confirm-history/{id}', 'Core\ClinicalsController@deletehistory');
 
 Route::post('/delete-history', 'Core\ClinicalsController@postdeletehistory');
 
+/*	Lab Routes
+|--------------------------------------------------------------------------| */
+Route::resource('labs', 'Core\LabsController', ['only' => [
+		    'index', 'create', 'edit'
+		]]);
+
+Route::get('/lab-create/{id}', 'Core\LabsController@create');
+
+Route::post('/lab-create/{id}', 'Core\LabsController@store');
+
+Route::post('/update-lab/{id}', 'Core\LabsController@update');
+
+Route::get('/confirm-lab/{id}', 'Core\LabsController@confirmdestroy');
+
+Route::post('/delete-lab/{id}', 'Core\LabsController@postdeletelab');

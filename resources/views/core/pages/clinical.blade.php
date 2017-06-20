@@ -24,14 +24,22 @@
 @section('body')
 <div class="padded-full">
     <ul class="list">
-        <li><strong>OP No:</strong> {{ $patient->op_no }}</li>
+        <li><strong>Outpatient No:</strong> {{ $patient->op_no }}</li>
         <li><strong>Age:</strong> {{ $patient->age }} years old</li>
         <li><strong>Gender:</strong> {{ $patient->gender }}</li>
+        @if($patient->phone)
         <li><strong>Phone:</strong> {{ $patient->phone }}</li>
+        @endif
+
+        @if($patient->physical_address)
+        <li><strong>Physical Address:</strong> {{ $patient->physical_address }}</li>
+        @endif
     </ul>
-    <a href="{{ url('history', $patient->id) }}">
-        <button class="btn fit-parent primary" style="margin-bottom: 10px;">Create New History</button>
-    </a>
+
+    <ul class="list">
+        <li class="divider text-center"><p><strong>Medical Information</strong></p> </li>
+    </ul>
+    
     @if($clinicals)
 
 
@@ -43,38 +51,52 @@
                 <div class="accordion-content bd-clinical">
                     <div class="padded-top">
 
-                        @if($clinical->complaint)
-                            <h5 style="padding-top: 25px;"><strong>Complaints:</strong></h5>
+                        @if($clinical->chief_complaint)
+                            <h5 style="padding-top: 25px;"><strong>Chief Complaint:</strong></h5>
                             <p class="padded-full">
-                                {{$clinical->complaint}}
+                                {{$clinical->chief_complaint}}
+                            </p>
+                        @endif
+
+                        @if($clinical->review_of_system)
+                            <h5 style="padding-top: 25px;"><strong>Review of System:</strong></h5>
+                            <p class="padded-full">
+                                {{$clinical->review_of_system}}
                             </p>
                         @endif
 
                         @if($clinical->pmshx)
-                        <h5><strong>PMS History:</strong></h5>
+                        <h5><strong>PMSHx:</strong></h5>
                         <p class="padded-full">
                             {{$clinical->pmshx}}
                         </p>
                         @endif
 
-                        @if($clinical->lab_test)
-                            <h5><strong>Lab Test:</strong></h5>
+                        @if($clinical->investigations)
+                            <h5><strong>Investigations (Lab/X-ray):</strong></h5>
                             <p class="padded-full">
-                                {{$clinical->lab_test}}
+                                {{$clinical->investigations}}
                             </p>
                         @endif
 
-                        @if($clinical->treatment)
-                            <h5><strong>Treatment:</strong></h5>
+                        @if($clinical->diagnosis)
+                            <h5><strong>Diagnosis:</strong></h5>
                             <p class="padded-full">
-                                {{$clinical->treatment}}
+                                {{$clinical->diagnosis}}
+                            </p>
+                        @endif
+
+                        @if($clinical->management)
+                            <h5><strong>Management:</strong></h5>
+                            <p class="padded-full">
+                                {{$clinical->management}}
                             </p>
                         @endif
                     </div>
                     <ul class="list">
                         <li class="text-center">
-                            <a href="{{ url('update-history', $clinical->id) }}" class="pull-left icon icon-edit primary" style="color: white;"></a>
-                            <a href="{{ url('confirm-history', $clinical->id) }}" class="pull-right icon icon-close primary" style="color: white;"></a>
+                            <a href="{{ url('update-history', $clinical->id) }}" class="btn pull-left icon icon-edit"></a>
+                            <a href="{{ url('confirm-history', $clinical->id) }}" class="btn pull-right icon icon-close"></a>
                         </li>
                     </ul>
                 </div>
@@ -87,7 +109,59 @@
             <i>Patient has no clinical history.</i>
         </p>
     @endif
-    <a href="{{ url('update-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent">UPDATE Patient Details</button></a>
+    
+    @if($labs)
+
+
+    @foreach($labs->reverse() as $lab)
+        <ul class="list">
+            <li>
+                <i class="pull-right icon icon-expand-more"></i>
+                <a href="#" class="padded-list">Lab Investigation for {{ \Carbon\Carbon::parse($lab->created_at)->toFormattedDateString() }}</a>
+                <div class="accordion-content bd-clinical">
+                    <div class="padded-top">
+
+                        @if($lab->specimen)
+                            <h5 style="padding-top: 25px;"><strong>Specimen:</strong></h5>
+                            <p class="padded-full">
+                                {{$lab->specimen}}
+                            </p>
+                        @endif
+
+                        @if($lab->investigation_request)
+                            <h5 style="padding-top: 25px;"><strong>Investigation Request:</strong></h5>
+                            <p class="padded-full">
+                                {{$lab->investigation_request}}
+                            </p>
+                        @endif
+
+                    </div>
+                    <ul class="list">
+                        <li class="text-center">
+                            <a href="{{ route('labs.edit', $lab->id) }}" class="btn pull-left icon icon-edit"></a>
+                            <a href="{{ url('confirm-lab', $lab->id) }}" class="btn pull-right icon icon-close"></a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    @endforeach
+
+    @else
+        <p class="padded-full text-center">
+            <i>Patient has no Lab history.</i>
+        </p>
+    @endif
+
+    <a href="{{ url('history', $patient->id) }}">
+        <button class="btn fit-parent primary" style="margin-top: 10px;">Create New History</button>
+    </a>
+
+    <a href="{{ url('lab-create', $patient->id) }}">
+        <button class="btn fit-parent" style="margin-top: 10px;">Request Lab Investigation</button>
+    </a>
+
+    <a href="{{ url('update-patient', $patient->id) }}"><button class="btn fit-parent" style="margin-top: 10px;">UPDATE Patient Details</button></a>
 
     <a href="{{ url('confirm-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent negative">Delete Medical Record</button></a>
 </div>

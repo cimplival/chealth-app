@@ -4,12 +4,16 @@
     <div class="padded-full">
 
         <ul class="list">
-            <li><strong>OP No:</strong> {{ $patient->op_no }}</li>
+            <li><strong>Outpatient No:</strong> {{ $patient->op_no }}</li>
             <li><strong>Age:</strong> {{ $patient->age }} years old</li>
             <li><strong>Gender:</strong> {{ $patient->gender }}</li>
             
             @if($patient->phone)
                 <li><strong>Phone:</strong> {{ $patient->phone }}</li>
+            @endif
+
+            @if($patient->physical_address)
+                <li><strong>Physical Address:</strong> {{ $patient->physical_address }}</li>
             @endif
 
         </ul>

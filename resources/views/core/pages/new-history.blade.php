@@ -5,28 +5,40 @@
 		{{ csrf_field() }}
 		<input type="hidden" name="patient_id" value="{{ $patient->id }}">
 		<div class="padded-full">
-		    <h5 class="pull-right">Complaints</h5>
+		    <h5 class="pull-right">Chief Complaint</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="complaint" value="{{ old('complaint') }}" placeholder="Type here..." autofocus></textarea> 
+		    <textarea name="chief_complaint" value="{{ old('chief_complaint') }}" placeholder="Type here..." autofocus></textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">PMS History</h5>
+		    <h5 class="pull-right">Review of System</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="pmshx" value="{{ old('pmshx') }}" placeholder="Type here..." autofocus></textarea> 
+		    <textarea name="review_of_system" value="{{ old('review_of_system') }}" placeholder="Type here..."></textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">Lab Tests</h5>
+		    <h5 class="pull-right">PMSHx:</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="lab_test" value="{{ old('lab_test') }}" placeholder="Type here..."></textarea> 
+		    <textarea name="pmshx" value="{{ old('pmshx') }}" placeholder="Type here..."></textarea> 
 		</div>
 		<div class="padded-full">
-		    <h5 class="pull-right">Treatments</h5>
+		    <h5 class="pull-right">Investigations (Lab/X-ray)</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="treatment" value="{{ old('treatment') }}" placeholder="Type here..."></textarea> 
+		    <textarea name="investigations" value="{{ old('investigations') }}" placeholder="Type here..."></textarea> 
+		</div>
+		<div class="padded-full">
+		    <h5 class="pull-right">Diagnosis</h5>
+		</div>
+		<div class="padded-full">
+		    <textarea name="diagnosis" value="{{ old('diagnosis') }}" placeholder="Type here..."></textarea> 
+		</div>
+		<div class="padded-full">
+		    <h5 class="pull-right">Management</h5>
+		</div>
+		<div class="padded-full">
+		    <textarea name="management" value="{{ old('management') }}" placeholder="Type here..."></textarea> 
 		</div>
 		<div class="padded-full">
 		    <button type="submit" class="btn fit-parent primary">Save Clinical History</button>
