@@ -36,6 +36,8 @@
                     <li><a class="padded-list" href="{{ url('waiting') }}">Waiting Patients</a></li>
                     <li><a class="padded-list" href="{{ url('/') }}">Medical Records</a></li>
                     <li><a class="padded-list" href="{{ url('labs') }}">Lab Records</a></li>
+                    <li><a class="padded-list" href="{{ url('reports') }}">Reports</a></li>
+                    <li><a class="padded-list" href="{{ url('settings') }}">Settings</a></li>
                 </ul>
             </div>
         </div>

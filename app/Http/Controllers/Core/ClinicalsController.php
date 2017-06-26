@@ -9,6 +9,8 @@ use cHealth\Patient;
 use cHealth\Clinical;
 use cHealth\Waiting;
 use cHealth\Lab;
+use cHealth\DiseaseCount;
+use cHealth\Tag;
 use Session;
 
 class ClinicalsController extends Controller
@@ -91,7 +93,7 @@ class ClinicalsController extends Controller
         $diagnosis              = $request->input('diagnosis');
         $management             = $request->input('management');
 
-        Clinical::create([
+        $clinical               = Clinical::create([
             'patient_id'        => $patient_id,
             'chief_complaint'   => $chief_complaint,
             'review_of_system'  => $review_of_system,
@@ -100,6 +102,26 @@ class ClinicalsController extends Controller
             'diagnosis'         => $diagnosis,
             'management'        => $management
         ]);
+
+        // Count Diseases
+        $diagnosis_input = $clinical->diagnosis;
+
+        $diseases_tags = Tag::get();
+
+        for($i=1; $i<=count($diseases_tags); $i++)
+        {   
+            $tag = Tag::whereId($i)->first();
+
+            if(strpos($diagnosis_input, $tag->name) !== false) {
+                
+                DiseaseCount::create([
+                    'disease_id' => $tag->disease->id,
+                    'patient_id' => $patient_id,
+                    'tag_id'     => $tag->id,
+                    'from_user'  => 1
+                ]);
+            }
+        }
 
         Waiting::where('patient_id', $patient_id)
             ->update([

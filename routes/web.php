@@ -73,3 +73,24 @@ Route::post('/update-lab/{id}', 'Core\LabsController@update');
 Route::get('/confirm-lab/{id}', 'Core\LabsController@confirmdestroy');
 
 Route::post('/delete-lab/{id}', 'Core\LabsController@postdeletelab');
+
+/*	Reports Routes
+|--------------------------------------------------------------------------| */
+Route::get('/reports', 'Core\ReportsController@index');
+
+Route::get('/diseases-reports', 'Core\ReportsController@diseasesreports');
+
+Route::post('/diseases-reports', 'Core\ReportsController@postdiseases');
+
+Route::get('/outpatient-reports', 'Core\ReportsController@outpatientreports');
+
+Route::post('/outpatient-reports', 'Core\ReportsController@postoutpatient');
+
+/*	Settings Routes
+|--------------------------------------------------------------------------| */
+Route::get('/settings', 'Core\SettingsController@settings');
+
+Route::post('/settings', 'Core\SettingsController@updatesettings');
+
+
+

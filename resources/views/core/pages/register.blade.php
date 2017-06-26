@@ -58,10 +58,11 @@
 		<input type="text" name="physical_address" value="{{ old('physical_address') }}" placeholder="Physical Address">
 	</div>
 	<div class="padded-full">
-		<button type="submit" onclick="register()" class="btn fit-parent">Register Only</button>
-	</div>
-	<div class="padded-full">
 		<button type="submit" class="btn fit-parent primary">Register and Queue</button>
+	</div>
+
+	<div class="padded-full">
+		<button type="submit" onclick="register()" class="btn fit-parent">Register Only</button>
 	</div>
 </form>
 @endsection
