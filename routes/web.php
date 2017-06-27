@@ -58,6 +58,12 @@ Route::get('/confirm-history/{id}', 'Core\ClinicalsController@deletehistory');
 
 Route::post('/delete-history', 'Core\ClinicalsController@postdeletehistory');
 
+Route::get('/referrals/{id}', 'Core\ClinicalsController@referrals');
+
+Route::get('/referral/{id}/{referral}', 'Core\ClinicalsController@postreferral');
+
+Route::post('/add-referral/{id}/{referral}', 'Core\ClinicalsController@addreferral');
+
 /*	Lab Routes
 |--------------------------------------------------------------------------| */
 Route::resource('labs', 'Core\LabsController', ['only' => [

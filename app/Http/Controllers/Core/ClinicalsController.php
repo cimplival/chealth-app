@@ -12,6 +12,7 @@ use cHealth\Lab;
 use cHealth\DiseaseCount;
 use cHealth\Tag;
 use cHealth\Attendance;
+use cHealth\Referral;
 use Session;
 
 class ClinicalsController extends Controller
@@ -22,11 +23,15 @@ class ClinicalsController extends Controller
 
         $labs                   = Lab::get();
 
+        $referrals              = Referral::get();
+
+        $all_referrals          = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
+
         $no_of_patients         = count($patients);
 
         $page                   = 'cHealth.io';
 
-    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients', 'labs'));
+    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients', 'labs', 'referrals', 'all_referrals'));
     }
 
     public function search(Request $request)
@@ -221,5 +226,39 @@ class ClinicalsController extends Controller
         $clinicals              = Clinical::where('patient_id', $patient->id)->get();
 
         return view('core.pages.clinical', compact('page', 'clinicals', 'patient'))->with('success', 'Clinical history deleted successfully.');
+    }
+
+    public function referrals($id)
+    {
+        $page                   = 'Add Referrals';
+
+        $patient                = Patient::whereId($id)->first();
+
+        return view('core.pages.referrals', compact('page', 'patient'));
+    }
+
+    public function postreferral($id, $referral)
+    {
+        $page                   = 'Confirm Referral';
+
+        $patient                = Patient::whereId($id)->first();
+
+        $referrals = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
+
+        $selected_referral = $referrals[$referral];
+
+        return view('core.pages.confirm-referral', compact('page', 'patient', 'selected_referral', 'referral'));
+    }
+
+    public function addreferral($id, $referral)
+    {   
+        Referral::create([
+            'patient_id' => $id,
+            'referral_id' => $referral
+        ]);
+
+        $patient_id = $id;
+
+        return redirect()->route('consult', [$patient_id])->with('success', 'Referral added successfully.');
     }
 }

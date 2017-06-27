@@ -153,12 +153,39 @@
         </p>
     @endif
 
+    @if($referrals)
+
+
+        @foreach($referrals->reverse() as $referral)
+            <ul class="list">
+                <li>
+                    <i class="pull-right icon icon-expand-more"></i>
+                    <a href="#" class="padded-list">Referral for {{ \Carbon\Carbon::parse($referral->created_at)->toFormattedDateString() }}</a>
+                    <div class="accordion-content bd-clinical">
+                        <div class="padded-top">
+                            <h5 style="padding-top: 25px;"><strong>Referral:</strong></h5>
+                            <p class="padded-full">
+                                {{ $all_referrals[$referral->referral_id]}}
+                            </p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        @endforeach
+
+    @endif
+
+
     <a href="{{ url('history', $patient->id) }}">
         <button class="btn fit-parent primary" style="margin-top: 10px;">Create New History</button>
     </a>
 
     <a href="{{ url('lab-create', $patient->id) }}">
         <button class="btn fit-parent" style="margin-top: 10px;">Request Lab Investigation</button>
+    </a>
+
+    <a href="{{ url('referrals', $patient->id) }}">
+        <button class="btn fit-parent" style="margin-top: 10px;">Create New Referral</button>
     </a>
 
     <a href="{{ url('update-patient', $patient->id) }}"><button class="btn fit-parent" style="margin-top: 10px;">UPDATE Patient Details</button></a>

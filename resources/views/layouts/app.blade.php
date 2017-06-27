@@ -27,7 +27,7 @@
             <header class="header-bar">
                 <button class="btn pull-right icon icon-close show-for-phone-only" data-side-panel-close="true"></button>
                 <div class="pull-left">
-                    <h4 class="title">Menu</h4>
+                    <h4 class="title">cHealth Menu</h4>
                 </div>
             </header>
             <div class="content">

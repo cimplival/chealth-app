@@ -7,6 +7,7 @@ use cHealth\Http\Controllers\Controller;
 use cHealth\Patient;
 use cHealth\Waiting;
 use cHealth\Clinical;
+use cHealth\Referral;
 use cHealth\Lab;
 
 class PatientsController extends Controller
@@ -72,7 +73,11 @@ class PatientsController extends Controller
    
         $labs                       = Lab::get();
 
-        return view('core.pages.clinical', compact('page', 'clinicals', 'patient', 'labs'));
+        $referrals              = Referral::get();
+
+        $all_referrals          = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
+
+        return view('core.pages.clinical', compact('page', 'clinicals', 'patient', 'labs', 'referrals', 'all_referrals'));
     }
 
     public function view($id)

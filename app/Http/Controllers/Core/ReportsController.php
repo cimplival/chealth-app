@@ -9,6 +9,7 @@ use cHealth\DiseaseCount;
 use Excel;
 use cHealth\Setting;
 use cHealth\Attendance;
+use cHealth\Referral;
 
 class ReportsController extends Controller
 {
@@ -68,7 +69,7 @@ class ReportsController extends Controller
 
 				$sheet->setOrientation('landscape');
 
-				$count_diseases = count($diseases)+11;
+				$count_diseases = count($diseases)+10;
 
 				$sheet->setBorder('B4:AI'. $count_diseases, 'thin');
 
@@ -151,7 +152,7 @@ class ReportsController extends Controller
 
 
 
-				$count_numbers = count($diseases) + 7;
+				$count_numbers = count($diseases) + 6;
 				//Disease Numbers right column
 				for($i=1; $i<=$count_numbers; $i++)
 				{	
@@ -219,7 +220,97 @@ class ReportsController extends Controller
 				}
 
 
-				$summary = array('No. of first attendances', 'Re-attendances', 'Referrals from other health facilities', 'Referrals to other health facilities', 'Referral from community unit', 'Referalls to community unit');
+				
+
+				//no of first attendances
+				$first_reattendances = ['67', 'No. of first attendances'];
+
+				for($i=1; $i<32; $i++)
+				{	
+					
+					$first_reattendance = count(Attendance::whereYear('created_at', $year)
+						->whereMonth('created_at', $month+1)
+						->whereDay('created_at', $i)
+						->whereStatus(0)
+						->get());
+
+					$first_reattendances[] = $first_reattendance;
+
+
+					$sheet->row(71, $first_reattendances);
+				}
+
+				//total first attendances for month
+				$total_first_attendance = count(Attendance::whereYear('created_at', $year)
+						->whereMonth('created_at', $month+1)
+						->whereStatus(0)
+						->get());
+
+				$sheet->cell('AH71', function($cell) use($total_first_attendance){
+					$cell->setValue($total_first_attendance);
+				});
+
+				//no of reattendances
+				$no_reattendances = ['68', 'Re-attendances'];
+
+				for($i=1; $i<32; $i++)
+				{	
+					
+					$no_reattendance = count(Attendance::whereYear('created_at', $year)
+						->whereMonth('created_at', $month+1)
+						->whereDay('created_at', $i)
+						->whereStatus(1)
+						->get());
+
+					$no_reattendances[] = $no_reattendance;
+
+
+					$sheet->row(72, $no_reattendances);
+				}
+
+				//total reattendances for month
+				$total_month_reattendance = count(Attendance::whereYear('created_at', $year)
+						->whereMonth('created_at', $month+1)
+						->whereStatus(1)
+						->get());
+
+				$sheet->cell('AH72', function($cell) use($total_month_reattendance){
+					$cell->setValue($total_month_reattendance);
+				});
+
+				//referalls
+				for($t=0; $t<4; $t++)
+				{	
+					$referrals = ['', ''];
+
+					for($i=1; $i<32; $i++)
+					{	
+						$referral = count(Referral::whereYear('created_at', $year)
+							->whereMonth('created_at', $month+1)
+							->whereDay('created_at', $i)
+							->where('referral_id', $t)
+						->get());
+
+						$referrals[] = $referral;
+
+						$sheet->row(73+$t, $referrals);
+					}
+
+
+					//total referrals
+					$total_referrals = count(Referral::whereYear('created_at', $year)
+							->whereMonth('created_at', $month+1)
+							->where('referral_id', $t)
+							->get());
+
+					$g = 73 + $t;
+					
+					$sheet->cell('AH' . $g, function($cell) use($total_referrals){
+						$cell->setValue($total_referrals);
+					});
+				}
+
+				$summary = array('No. of first attendances', 'Re-attendances', 'Referrals from other health facilities', 'Referrals to other health facilities', 'Referrals from community unit', 'Referrals to community unit');
 
 				for($i=0; $i<count($summary); $i++)
 				{	
