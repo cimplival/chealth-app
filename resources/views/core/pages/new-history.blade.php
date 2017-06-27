@@ -38,7 +38,18 @@
 		    <h5 class="pull-right">Management</h5>
 		</div>
 		<div class="padded-full">
-		    <textarea name="management" value="{{ old('management') }}" placeholder="Type here..."></textarea> 
+		    <textarea name="management" value="{{ old('management') }}" placeholder="Type here..."></textarea>
+		</div>
+		<div class="padded-full">
+		    <ul class="list">
+		        <li class="">
+		            <label class="checkbox">
+		                <input type="checkbox" name="reattendance" value="1">
+		                Patient Reattendance? (Check if True)
+		                <span></span>
+		            </label>
+		        </li>
+		    </ul>
 		</div>
 		<div class="padded-full">
 		    <button type="submit" class="btn fit-parent primary">Save Clinical History</button>

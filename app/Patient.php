@@ -10,7 +10,12 @@ class Patient extends Model
 
     public function diseasecount()
 	{
-	    return $this->hasMany('DiseaseCount');
+	    return $this->hasMany('cHealth\DiseaseCount');
+	}
+
+	public function attendance()
+	{
+	    return $this->hasMany('cHealth\Attendance');
 	}
 
 }

@@ -11,6 +11,7 @@ use cHealth\Waiting;
 use cHealth\Lab;
 use cHealth\DiseaseCount;
 use cHealth\Tag;
+use cHealth\Attendance;
 use Session;
 
 class ClinicalsController extends Controller
@@ -92,6 +93,7 @@ class ClinicalsController extends Controller
         $investigations         = $request->input('investigations');
         $diagnosis              = $request->input('diagnosis');
         $management             = $request->input('management');
+        $reattendance           = $request->input('reattendance');
 
         $clinical               = Clinical::create([
             'patient_id'        => $patient_id,
@@ -102,6 +104,21 @@ class ClinicalsController extends Controller
             'diagnosis'         => $diagnosis,
             'management'        => $management
         ]);
+
+        if($reattendance=="1")
+        {
+            Attendance::create([
+                'patient_id'              => $patient_id,
+                'clinical_id'             => $clinical->id,
+                'status'                  => 1
+            ]);
+        } else {
+            Attendance::create([
+                'patient_id'              => $patient_id,
+                'clinical_id'             => $clinical->id,
+                'status'                  => 0
+            ]);
+        }
 
         // Count Diseases
         $diagnosis_input = $clinical->diagnosis;
@@ -116,7 +133,7 @@ class ClinicalsController extends Controller
                 
                 DiseaseCount::create([
                     'disease_id' => $tag->disease->id,
-                    'patient_id' => $patient_id,
+                    'patient_id' => $clinical->patient_id,
                     'tag_id'     => $tag->id,
                     'from_user'  => 1
                 ]);

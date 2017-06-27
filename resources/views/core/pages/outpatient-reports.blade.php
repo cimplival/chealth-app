@@ -21,23 +21,30 @@
 @endsection
 
 @section('body')
-<form id="register_form" method="POST" action="">
+<form method="POST" action="{{ url('outpatient-reports') }}">
 {{ csrf_field() }}
 	<div class="padded-full">
-		<select>
-			<option value=''>--Select Month--</option>
-		    <option selected value='January'>January</option>
-		    <option value='February'>February</option>
-		    <option value='March'>March</option>
-		    <option value='April'>April</option>
-		    <option value='May'>May</option>
-		    <option value='June'>June</option>
-		    <option value='July'>July</option>
-		    <option value='August'>August</option>
-		    <option value='September'>September</option>
-		    <option value='October'>October</option>
-		    <option value='November'>November</option>
-		    <option value='December'>December</option>
+		<select name="month">
+			<option selected value=''>---Select a Month---</option>
+		    <option value='0'>January</option>
+		    <option value='1'>February</option>
+		    <option value='2'>March</option>
+		    <option value='3'>April</option>
+		    <option value='4'>May</option>
+		    <option value='5'>June</option>
+		    <option value='6'>July</option>
+		    <option value='7'>August</option>
+		    <option value='8'>September</option>
+		    <option value='9'>October</option>
+		    <option value='10'>November</option>
+		    <option value='11'>December</option>
+		</select>
+	</div>
+	<div class="padded-full">
+		<select name="year">
+			<option selected value=''>---Select Year---</option>
+		    <option value='2017'>2017</option>
+		    <option value='2018'>2018</option>
 		</select>
 	</div>
 	<div class="padded-full">

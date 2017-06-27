@@ -12,4 +12,9 @@ class Clinical extends Model
     {
         return $this->belongsTo('cHealth\Patient', 'patient_id');
     }
+
+    public function attendance()
+	{
+	    return $this->hasMany('cHealth\Attendance');
+	}
 }

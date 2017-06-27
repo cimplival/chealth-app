@@ -12,7 +12,7 @@ class SettingSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('diseases')->delete(); 
+        DB::table('settings')->delete(); 
 
         Setting::create([
    			'facility_name' => 'Pangani Hospital',
