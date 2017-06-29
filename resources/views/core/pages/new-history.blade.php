@@ -1,5 +1,23 @@
 @extends('layouts.app')
 
+@if (Session::has('info'))
+@include('core.partials.info')
+@endif
+
+@if (Session::has('success'))
+@include('core.partials.success')
+@endif
+
+@if (Session::has('error'))
+@include('core.partials.error')
+@endif
+
+@if (Session::has('errors'))
+@include('core.partials.errors')
+@endif
+
+@endsection
+
 @section('body')
 	<form method="POST" action="{{ url('new-history') }}">
 		{{ csrf_field() }}
@@ -41,6 +59,14 @@
 		    <textarea name="management" value="{{ old('management') }}" placeholder="Type here..."></textarea>
 		</div>
 		<div class="padded-full">
+			<select name="classify_disease">
+				<option selected value=''>---Disease Classification---</option>
+			    @foreach($diseases as $disease)
+				    <option value='{{$disease->id}}'>{{$disease->name}}</option>
+				@endforeach
+			</select>
+		</div>
+		<div class="padded-full">
 		    <ul class="list">
 		        <li class="">
 		            <label class="checkbox">
@@ -55,4 +81,10 @@
 		    <button type="submit" class="btn fit-parent primary">Save Clinical History</button>
 		</div>
 	</form>
+@endsection
+
+@section('partials-script')
+@if (Session::has('errors') || Session::has('error') || Session::has('info') || Session::has('success'))
+@include('core.partials.notify-script')
+@endif
 @endsection

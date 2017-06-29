@@ -13,7 +13,15 @@ use cHealth\DiseaseCount;
 use cHealth\Tag;
 use cHealth\Attendance;
 use cHealth\Referral;
+use cHealth\Disease;
 use Session;
+use Phpml\Classification\NaiveBayes;
+use Phpml\CrossValidation\StratifiedRandomSplit;
+use Phpml\FeatureExtraction\TokenCountVectorizer;
+use Phpml\FeatureExtraction\TfIdfTransformer;
+use Phpml\Tokenization\WhitespaceTokenizer;
+use Phpml\Dataset\ArrayDataset;
+use Phpml\Metric\Accuracy;
 
 class ClinicalsController extends Controller
 {
@@ -82,13 +90,17 @@ class ClinicalsController extends Controller
 
         $page                   = $patient->name;
 
-        return view('core.pages.new-history', compact('page', 'patient', 'new-history'));
+        $diseases               = Disease::get();
+
+        return view('core.pages.new-history', compact('page', 'patient', 'new-history', 'diseases'));
     }
+
 
     public function new(Request $request)
     {
         $this->validate($request, [
-                'patient_id'    => 'required|numeric|min:1',
+                'patient_id'       => 'required|numeric|min:1',
+                'classify_disease' => 'required'
         ]);
 
         $patient_id             = $request->input('patient_id');
@@ -99,6 +111,7 @@ class ClinicalsController extends Controller
         $diagnosis              = $request->input('diagnosis');
         $management             = $request->input('management');
         $reattendance           = $request->input('reattendance');
+        $classify_disease       = $request->input('classify_disease');
 
         $clinical               = Clinical::create([
             'patient_id'        => $patient_id,
@@ -109,6 +122,11 @@ class ClinicalsController extends Controller
             'diagnosis'         => $diagnosis,
             'management'        => $management
         ]);
+
+
+
+
+
 
         if($reattendance=="1")
         {
@@ -125,25 +143,115 @@ class ClinicalsController extends Controller
             ]);
         }
 
-        // Count Diseases
+
+         // Count Diseases
         $diagnosis_input = $clinical->diagnosis;
 
         $diseases_tags = Tag::get();
 
-        for($i=1; $i<=count($diseases_tags); $i++)
-        {   
-            $tag = Tag::whereId($i)->first();
+        $count_diseases_tags = count($diseases_tags);
 
-            if(strpos($diagnosis_input, $tag->name) !== false) {
-                
-                DiseaseCount::create([
-                    'disease_id' => $tag->disease->id,
-                    'patient_id' => $clinical->patient_id,
-                    'tag_id'     => $tag->id,
-                    'from_user'  => 1
-                ]);
-            }
+
+        $diagnosis = strtolower($diagnosis);
+
+
+
+        //php machine learning naive bayes algorithm to add diagnosis to disease classification tag
+
+
+        //for samples
+        $samples = [];
+
+        foreach ($diseases_tags as $diseases_tag) {
+
+            $samples[] = strtolower($diseases_tag->name);
         }
+
+
+        $vectorizer = new TokenCountVectorizer(new WhitespaceTokenizer());
+
+        $vectorizer->fit($samples);
+
+        $vectorizer->transform($samples);
+
+
+
+        $tfIdfTransformer = new TfIdfTransformer();
+
+        $tfIdfTransformer->fit($samples);
+        
+        $tfIdfTransformer->transform($samples);
+
+
+
+        //for labels
+
+        $labels = [];
+
+        foreach ($diseases_tags as $diseases_tag) {
+
+            $labels[] = $diseases_tag->disease_id;
+        }
+
+
+        $dataset = new ArrayDataset($samples, $labels);
+
+        $randomSplit = new StratifiedRandomSplit($dataset, 0.1);
+
+        $trainingSamples = $randomSplit->getTrainSamples();
+        
+        $trainingLabels  = $randomSplit->getTrainLabels();
+
+        $testSamples = $randomSplit->getTestSamples();
+        
+        $testLabels  = $randomSplit->getTestLabels();
+
+
+        //train data
+
+        $classifier = new NaiveBayes;
+
+        $classifier->train($testSamples, $testLabels);
+
+
+        //get diagnosis input, vectorize and transform
+
+        $diagnosis_collection = [];
+
+        $diagnosis_collection[] = $diagnosis;
+
+
+        $vectorizer->fit($diagnosis_collection);
+
+        $vectorizer->transform($diagnosis_collection);
+
+
+        $predictedLabels = $classifier->predict($diagnosis_collection);
+
+        $accuracy = Accuracy::score($testSamples, $testLabels);
+
+        //count no of disease, check whether all have tags similar to input 
+        //if not create a tag, if yes use its tag to create a disease count.
+
+
+        $classify_disease_tag = Tag::where('name', $diagnosis)->first();
+
+        if(!$classify_disease_tag)
+        {
+            $latest_tag = Tag::create([
+                    'disease_id' => $classify_disease,
+                    'name'       => $diagnosis
+                ]);
+        }
+
+        //Disease count
+        $classify_disease = DiseaseCount::create([
+            'disease_id' => $classify_disease,
+            'patient_id' => $patient_id,                
+            'tag_id'     => $classify_disease_tag->id,
+            'from_user'  => 1
+        ]);
+
 
         Waiting::where('patient_id', $patient_id)
             ->update([
@@ -160,6 +268,7 @@ class ClinicalsController extends Controller
 
         return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history saved successfully.');
     }
+
 
     public function update($id)
     {   
