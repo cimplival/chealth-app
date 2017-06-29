@@ -233,10 +233,12 @@ class ClinicalsController extends Controller
 
         if(!$classify_disease_tag)
         {
-            $latest_tag = Tag::create([
+            $tag = Tag::create([
                     'disease_id' => $classify_disease,
                     'name'       => $diagnosis
                 ]);
+
+            $latest_tag = $tag->id;
         } else {
 
             $latest_tag = $classify_disease_tag->id;
@@ -364,7 +366,7 @@ class ClinicalsController extends Controller
         ]);
 
         $institution =  $request->input('institution');
-        
+
         Referral::create([
             'patient_id' => $id,
             'referral_id' => $referral,
