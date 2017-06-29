@@ -52,7 +52,7 @@ class SettingsController extends Controller
 
         if($response == 0)
         {
-            $process = new Process('git pull && php artisan migrate --seed');
+            $process = new Process('git pull && php artisan migrate --seed --force');
 
             $process->setWorkingDirectory(base_path());
             
