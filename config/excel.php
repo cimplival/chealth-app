@@ -58,15 +58,15 @@ return array(
     ],
 
     'properties' => [
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
-        'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
-        'subject'        => 'Spreadsheet export',
-        'keywords'       => 'maatwebsite, excel, export',
+        'creator'        => 'cHealth.io',
+        'lastModifiedBy' => 'cHealth.io',
+        'title'          => 'cHealth.io',
+        'description'    => 'cHealth.io spreadsheet',
+        'subject'        => 'cHealth.io',
+        'keywords'       => 'cHealth.io',
         'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'manager'        => 'cHealth.io',
+        'company'        => 'cHealth.io',
     ],
 
     /*
@@ -106,7 +106,7 @@ return array(
     |
     */
 
-    'creator'    => 'Maatwebsite',
+    'creator'    => 'cHealth.io',
 
     'csv'        => [
         /*
@@ -323,7 +323,7 @@ return array(
                 |--------------------------------------------------------------------------
                 */
                 'tcPDF'  => [
-                    'path' => base_path('vendor/tecnick.com/tcpdf/')
+                    'path' => base_path('vendor/tecnickcom/tcpdf/')
                 ],
 
                 /*

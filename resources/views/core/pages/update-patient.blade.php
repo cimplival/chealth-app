@@ -25,10 +25,10 @@
 	{{ csrf_field() }}
 	<input type="hidden" name="patient_id" value="{{ $patient->id }}">
 	<div class="padded-full">
-		<input type="text" name="name" value="{{ $patient->name }}" placeholder="Patient Name">
+		<input type="text" name="name" value="{{ $patient->name }}" autocomplete="off" placeholder="Patient Name">
 	</div>
 	<div class="padded-full">
-		<input type="text" name="age" value="{{ $patient->age }}" placeholder="Patient Age">
+		<input type="text" name="age" value="{{ $patient->age }}" autocomplete="off" placeholder="Patient Age">
 	</div>
 	<div class="padded-full">
 		<ul class="list">
@@ -49,13 +49,13 @@
 		</ul>
 	</div>
 	<div class="padded-full">
-		<input type="text" name="phone" value="{{ $patient->phone }}" placeholder="Patient Phone">
+		<input type="text" name="phone" value="{{ $patient->phone }}" autocomplete="off" placeholder="Patient Phone">
 	</div>
 	<div class="padded-full">
-		<input type="text" name="physical_address" value="{{ $patient->physical_address }}" placeholder="Physical Address">
+		<input type="text" name="physical_address" autocomplete="off" value="{{ $patient->physical_address }}" placeholder="Physical Address">
 	</div>
 	<div class="padded-full">
-		<button type="submit" class="btn fit-parent">Update Patient</button>
+		<button type="submit" class="btn fit-parent primary">Update Patient</button>
 	</div>
 </form>
 @endsection

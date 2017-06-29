@@ -40,6 +40,10 @@
         <li class="divider text-center"><p><strong>Medical Information</strong></p> </li>
     </ul>
     
+    <a href="{{ url('history', $patient->id) }}">
+        <button class="btn fit-parent primary" style="margin-top: 10px;">Create New History</button>
+    </a>
+
     @if($clinicals)
 
 
@@ -110,6 +114,10 @@
         </p>
     @endif
     
+    <a href="{{ url('lab-create', $patient->id) }}">
+        <button class="btn fit-parent primary" style="margin-top: 10px;">Request Lab Investigation</button>
+    </a>
+
     @if($labs)
 
 
@@ -137,10 +145,14 @@
 
                     </div>
                     <ul class="list">
-                        <li class="text-center">
-                            <a href="{{ route('labs.edit', $lab->id) }}" class="btn pull-left icon icon-edit"></a>
-                            <a href="{{ url('confirm-lab', $lab->id) }}" class="btn pull-right icon icon-close"></a>
-                        </li>
+                        @if($lab->status==1)
+                            <li class="text-center">
+                                <a href="{{ route('labs.edit', $lab->id) }}" class="btn pull-left icon icon-edit"></a>
+                                <a href="{{ url('confirm-lab', $lab->id) }}" class="btn pull-right icon icon-close"></a>
+                            </li>
+                        @else
+                            <p style="color: green;">Lab Investigation Pending...</p>
+                        @endif
                     </ul>
                 </div>
             </li>
@@ -152,6 +164,10 @@
             <i>Patient has no Lab history.</i>
         </p>
     @endif
+
+    <a href="{{ url('referrals', $patient->id) }}">
+        <button class="btn fit-parent primary" style="margin-top: 10px;">Create New Referral</button>
+    </a>
 
     @if($referrals)
 
@@ -175,20 +191,9 @@
 
     @endif
 
-
-    <a href="{{ url('history', $patient->id) }}">
-        <button class="btn fit-parent primary" style="margin-top: 10px;">Create New History</button>
+    <a href="{{ url('update-patient', $patient->id) }}">
+        <button class="btn fit-parent primary" style="margin-top: 10px;">UPDATE Patient Details</button>
     </a>
-
-    <a href="{{ url('lab-create', $patient->id) }}">
-        <button class="btn fit-parent" style="margin-top: 10px;">Request Lab Investigation</button>
-    </a>
-
-    <a href="{{ url('referrals', $patient->id) }}">
-        <button class="btn fit-parent" style="margin-top: 10px;">Create New Referral</button>
-    </a>
-
-    <a href="{{ url('update-patient', $patient->id) }}"><button class="btn fit-parent" style="margin-top: 10px;">UPDATE Patient Details</button></a>
 
     <a href="{{ url('confirm-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent negative">Delete Medical Record</button></a>
 </div>

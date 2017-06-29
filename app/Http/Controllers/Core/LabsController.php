@@ -16,11 +16,13 @@ class LabsController extends Controller
      */
     public function index()
     {
-        $page                       = 'Lab Records';
+        $page                       = 'Lab Investigations';
 
-        $labs                        = Lab::get();
+        $labs                       = Lab::whereStatus(0)->get();
 
-        return view('core.pages.view-labs', compact('page', 'labs'));
+        $past_labs                  = Lab::whereStatus(1)->get();
+
+        return view('core.pages.view-labs', compact('page', 'labs', 'past_labs'));
     }
 
     /**
@@ -30,7 +32,7 @@ class LabsController extends Controller
      */
     public function create(Request $request, $id)
     {
-        $page                       = 'Request Lab Record';
+        $page                       = 'Request Investigation';
 
         $patient                    = Patient::whereId($id)->first();
 
@@ -45,16 +47,23 @@ class LabsController extends Controller
      */
 
     public function store(Request $request, $id)
-    {
+    {   
+        $this->validate($request, [
+                'investigation_request'   => 'required|min:1|max:256'
+        ]); 
+
+        $investigation_request = $request->input('investigation_request');
+
         $lab = Lab::create([
             'patient_id'                 => $id,
+            'investigation_request'      => $investigation_request,
             'status'                     => 0,
             'from_user'                  => 1
         ]);
 
         $patient_id = $lab->patient->id;
 
-        return redirect()->route('consult', [$patient_id])->with('success', 'Lab record requested successfully.');
+        return redirect()->route('consult', [$patient_id])->with('success', 'Lab investigation requested successfully.');
 
     }
 
@@ -77,7 +86,7 @@ class LabsController extends Controller
      */
     public function edit($id)
     {
-        $page                       = 'Update Lab Record';
+        $page                       = 'Update Lab Investigation';
 
         $lab                        = Lab::whereId($id)->first();
 
@@ -108,7 +117,7 @@ class LabsController extends Controller
             'from_user'                   => 1
         ]);
 
-        return redirect()->back()->with('success', 'Lab record updated successfully.');
+        return redirect()->back()->with('success', 'Lab investigation updated successfully.');
     }
 
     /**

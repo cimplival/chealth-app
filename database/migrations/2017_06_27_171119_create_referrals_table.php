@@ -17,6 +17,7 @@ class CreateReferralsTable extends Migration
             $table->increments('id');
             $table->integer('patient_id');
             $table->integer('referral_id');
+            $table->string('institution');
             $table->timestamps();
         });
     }

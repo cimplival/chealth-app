@@ -98,5 +98,6 @@ Route::get('/settings', 'Core\SettingsController@settings');
 
 Route::post('/settings', 'Core\SettingsController@updatesettings');
 
+Route::get('/update-chealth', 'Core\SettingsController@updatechealth');
 
 

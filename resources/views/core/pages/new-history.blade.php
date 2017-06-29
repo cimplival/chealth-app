@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('partials')
+
 @if (Session::has('info'))
 @include('core.partials.info')
 @endif
@@ -60,7 +62,7 @@
 		</div>
 		<div class="padded-full">
 			<select name="classify_disease">
-				<option selected value=''>---Disease Classification---</option>
+				<option selected value='' disabled>Select a disease classification</option>
 			    @foreach($diseases as $disease)
 				    <option value='{{$disease->id}}'>{{$disease->name}}</option>
 				@endforeach
@@ -71,7 +73,7 @@
 		        <li class="">
 		            <label class="checkbox">
 		                <input type="checkbox" name="reattendance" value="1">
-		                Patient Reattendance? (Check if True)
+		                	Select if Patient Reattendance
 		                <span></span>
 		            </label>
 		        </li>

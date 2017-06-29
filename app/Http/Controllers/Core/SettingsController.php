@@ -5,12 +5,15 @@ namespace cHealth\Http\Controllers\Core;
 use Illuminate\Http\Request;
 use cHealth\Http\Controllers\Controller;
 use cHealth\Setting;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+
 
 class SettingsController extends Controller
 {
     public function settings()
     {
-    	$page = 'cHealth Settings';
+    	$page = 'Settings';
 
     	$setting = Setting::first();
 
@@ -39,5 +42,38 @@ class SettingsController extends Controller
         ]);
 
         return redirect('settings')->with('success', 'The settings have been updated successfully.');
+    }
+
+    public function updatechealth()
+    {   
+        $response = null;
+
+        system("ping -c 1 google.com", $response);
+
+        if($response == 0)
+        {
+            $process = new Process('git pull && php artisan migrate --seed');
+
+            $process->setWorkingDirectory(base_path());
+            
+            $process->run();
+
+            if ($process->isSuccessful()) {
+
+                $data = 'cHealth was successfully updated.';
+
+            } else {
+
+                $data = 'Sorry, the update was not successful.';
+
+            }
+
+        } else {
+
+            $data = 'Please check your internet connection.'; 
+        
+        }
+
+        return redirect('settings')->with('info', $data);
     }
 }

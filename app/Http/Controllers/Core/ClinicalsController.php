@@ -27,19 +27,19 @@ class ClinicalsController extends Controller
 {
     public function index()
     {	
-        $patients               = Patient::get();
-
         $labs                   = Lab::get();
 
         $referrals              = Referral::get();
 
         $all_referrals          = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
 
-        $no_of_patients         = count($patients);
+        $no_of_patients         = count(Patient::get());
 
-        $page                   = 'cHealth.io';
+        $patients               = Patient::get();
 
-    	return view('core.pages.records', compact('page', 'patients', 'no_of_patients', 'labs', 'referrals', 'all_referrals'));
+        $page                   = 'Medical Records';
+
+    	return view('core.pages.records', compact('page', 'no_of_patients', 'labs', 'referrals', 'all_referrals', 'patients'));
     }
 
     public function search(Request $request)
@@ -122,11 +122,6 @@ class ClinicalsController extends Controller
             'diagnosis'         => $diagnosis,
             'management'        => $management
         ]);
-
-
-
-
-
 
         if($reattendance=="1")
         {
@@ -242,13 +237,16 @@ class ClinicalsController extends Controller
                     'disease_id' => $classify_disease,
                     'name'       => $diagnosis
                 ]);
+        } else {
+
+            $latest_tag = $classify_disease_tag->id;
         }
 
         //Disease count
         $classify_disease = DiseaseCount::create([
             'disease_id' => $classify_disease,
             'patient_id' => $patient_id,                
-            'tag_id'     => $classify_disease_tag->id,
+            'tag_id'     => $latest_tag,
             'from_user'  => 1
         ]);
 
@@ -359,11 +357,18 @@ class ClinicalsController extends Controller
         return view('core.pages.confirm-referral', compact('page', 'patient', 'selected_referral', 'referral'));
     }
 
-    public function addreferral($id, $referral)
-    {   
+    public function addreferral(Request $request, $id, $referral)
+    {      
+        $this->validate($request, [
+            'institution'       => 'required|min:1',
+        ]);
+
+        $institution =  $request->input('institution');
+        
         Referral::create([
             'patient_id' => $id,
-            'referral_id' => $referral
+            'referral_id' => $referral,
+            'institution' => $institution
         ]);
 
         $patient_id = $id;

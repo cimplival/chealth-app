@@ -25,7 +25,7 @@
 {{ csrf_field() }}
 	<div class="padded-full">
 		<select name="month">
-			<option selected value=''>---Select a Month---</option>
+			<option selected disabled>Select a Month</option>
 		    <option value='0'>January</option>
 		    <option value='1'>February</option>
 		    <option value='2'>March</option>
@@ -42,13 +42,15 @@
 	</div>
 	<div class="padded-full">
 		<select name="year">
-			<option selected value=''>---Select Year---</option>
+			<option selected disabled>Select a Year</option>
 		    <option value='2017'>2017</option>
 		    <option value='2018'>2018</option>
+		    <option value='2018'>2019</option>
+		    <option value='2018'>2020</option>
 		</select>
 	</div>
 	<div class="padded-full">
-		<button type="submit" class="btn fit-parent primary">Generate Report</button>
+		<button type="submit" class="btn fit-parent primary">Download Report</button>
 	</div>
 </form>
 @endsection

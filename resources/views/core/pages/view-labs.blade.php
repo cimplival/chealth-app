@@ -13,9 +13,22 @@
 		<ul class="list">
 			@foreach($labs as $key=>$lab)
 			<li class="padded-full">
-				<a href="{{ route('labs.edit', $lab->id) }}">{{++$key}}. {{$lab->patient->name}} (since {{ \Carbon\Carbon::parse($lab->created_at)->diffForHumans() }}) @if($lab->status==0) <sup style="color:green">*New</sup> @endif
+				<a href="{{ route('labs.edit', $lab->id) }}">{{++$key}}. {{$lab->patient->name}} (since {{ \Carbon\Carbon::parse($lab->created_at)->diffForHumans() }})
 				</a>
 			</li>
+			@endforeach
+		</ul>
+	</div>
+	<div class="padded-full">
+		<ul class="list">
+	        <li class="divider text-center"><p>Past Lab Investigations</p> </li>
+	    </ul>
+		<ul class="list">
+			@foreach($past_labs->reverse() as $lab)
+				<li class="padded-full">
+					<a href="{{ route('labs.edit', $lab->id) }}">{{$lab->patient->name}} (since {{ \Carbon\Carbon::parse($lab->created_at)->diffForHumans() }})
+					</a>
+				</li>
 			@endforeach
 		</ul>
 	</div>

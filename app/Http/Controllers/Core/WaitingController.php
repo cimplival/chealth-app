@@ -10,8 +10,10 @@ class WaitingController extends Controller
 {
     public function index()
     {	
-    	$page = 'Waiting Patients';
+    	$page = 'Patient Waitlist';
     	$waitings = Waiting::whereStatus(1)->get();
+
+        $past_waitings = Waiting::whereStatus(0)->get();
 
     	if(count($waitings)==0)
         {
@@ -27,7 +29,7 @@ class WaitingController extends Controller
 
         //session info to be fixed
 
-    	return view('core.pages.waiting', compact('page', 'waitings'));
+    	return view('core.pages.waiting', compact('page', 'waitings', 'past_waitings'));
     }
 
     public function waitlist(Request $request, $id)

@@ -33,7 +33,7 @@
 
         @if(!$waitlist)
             <a href="{{ url('waitlist', $patient->id) }}">
-                <button class="btn fit-parent" style="margin-top: 15px;">Add to Waiting</button>
+                <button class="btn fit-parent" style="margin-top: 15px;">Add to Waitlist</button>
             </a>
         @else
             <a href="{{ url('consult', $patient->id) }}">

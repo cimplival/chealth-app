@@ -25,13 +25,13 @@
 {{ csrf_field() }}
 	<input id="register_status" type="hidden" name="register_only" value="0">
 	<div class="padded-full">
-		<input type="text" name="op_no" value="{{ old('op_no') }}" placeholder="Outpatient No." autofocus>
+		<input type="text" name="op_no" value="{{ old('op_no') }}" placeholder="Outpatient No." autocomplete="off" autofocus>
 	</div>
 	<div class="padded-full">
-		<input type="text" name="name" value="{{ old('name') }}" placeholder="Patient Name">
+		<input type="text" name="name" value="{{ old('name') }}" autocomplete="off" placeholder="Patient Name">
 	</div>
 	<div class="padded-full">
-		<input type="text" name="age" value="{{ old('age') }}" placeholder="Age">
+		<input type="text" name="age" value="{{ old('age') }}" autocomplete="off" placeholder="Age">
 	</div>
 	<div class="padded-full">
 		<ul class="list">
@@ -52,7 +52,7 @@
 		</ul>
 	</div>
 	<div class="padded-full">
-		<input type="text" name="phone" value="{{ old('phone') }}" placeholder="Phone">
+		<input type="text" name="phone" value="{{ old('phone') }}" autocomplete="off" placeholder="Phone">
 	</div>
 	<div class="padded-full">
 		<input type="text" name="physical_address" value="{{ old('physical_address') }}" placeholder="Physical Address">

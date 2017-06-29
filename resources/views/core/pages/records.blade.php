@@ -34,7 +34,7 @@
     <div class="padded-full">
         <ul class="list">
             @if($patients)
-                @foreach($patients as $patient)
+                @foreach($patients->reverse() as $patient)
                 <li>
                     <a class="padded-list" href="{{ url('view', $patient->id)}}">{{$patient->name}}: OP. No: {{$patient->op_no }}</a>
                 </li>

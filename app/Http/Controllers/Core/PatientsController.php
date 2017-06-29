@@ -71,11 +71,11 @@ class PatientsController extends Controller
 
         $page                       = $patient->name;
    
-        $labs                       = Lab::get();
+        $labs                       = Lab::where('patient_id', $id)->get();
 
-        $referrals              = Referral::get();
+        $referrals                  = Referral::where('patient_id', $id)->get();
 
-        $all_referrals          = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
+        $all_referrals              = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
 
         return view('core.pages.clinical', compact('page', 'clinicals', 'patient', 'labs', 'referrals', 'all_referrals'));
     }

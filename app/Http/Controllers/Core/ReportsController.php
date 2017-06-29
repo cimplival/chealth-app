@@ -65,7 +65,7 @@ class ReportsController extends Controller
 		Excel::create('Disease Report', function($excel) use($diseases, $year, $month, $months, $form, $age_test){
 
 
-			$excel->sheet('Disease Reports', function($sheet) use($diseases, $year, $month, $months, $form, $age_test) {
+			$excel->sheet('Disease Report', function($sheet) use($diseases, $year, $month, $months, $form, $age_test) {
 
 				$sheet->setOrientation('landscape');
 
@@ -171,19 +171,33 @@ class ReportsController extends Controller
 					$sheet->row(4, $days);
 				}
 
-		    	//Make bold cells C4 to AG4
+		    	//Make bold and center cells C4 to AG4
 				$sheet->cells('C4:AG4', function($cells) {
 					$cells->setFontWeight('bold');
+					$cells->setAlignment('center');
+				});
+
+				//Make bold and center cells C4 to AG4
+				$sheet->cells('C5:AH76', function($cells) {
+					$cells->setAlignment('center');
+				});
+
+				//Make bold and center cells C4 to AG4
+				$sheet->cells('C4:AG4', function($cells) {
+					$cells->setFontWeight('bold');
+					$cells->setAlignment('center');
 				});
 
 				$sheet->cell('B4', function($cell) {
 					$cell->setValue('Diseases (New Cases Only)');
 					$cell->setFontWeight('bold');
+					$cell->setAlignment('center');
 				});
 
 				$sheet->cell('AH4', function($cell) {
 					$cell->setValue('Total');
 					$cell->setFontWeight('bold');
+					$cell->setAlignment('center');
 				});
 
 				for($i=1; $i<=count($diseases); $i++)
@@ -335,7 +349,7 @@ class ReportsController extends Controller
 
 			});
 
-})->export('xlsx');
+})->download('xlsx');
 }
 
 public function postoutpatient(Request $request)
@@ -357,7 +371,7 @@ public function postoutpatient(Request $request)
 		$excel->sheet('Outpatient Report', function($sheet) use($year, $month, $months) {
 
 			$sheet->setPageMargin(array(
-			    1.00, 0.35, 0.35, 0.50
+			    1.0, 0.35, 0.35, 0.50
 			));
 
 			$sheet->mergeCells('A1:I2');
@@ -369,6 +383,10 @@ public function postoutpatient(Request $request)
 			$sheet->mergeCells('A5:I5');
 
 			$sheet->mergeCells('A6:I6');
+
+			$sheet->mergeCells('C8:D8');
+
+			$sheet->mergeCells('E8:F8');
 
 			$sheet->setWidth(array(
 				'A'         =>  12,
@@ -402,7 +420,7 @@ public function postoutpatient(Request $request)
 			});
 
 			$sheet->cell('A5', function($cell) use($month, $months, $year){
-				$cell->setValue('Month: '. $months[$month] .', Year:'. $year);
+				$cell->setValue('Month: '. $months[$month] .', Year: '. $year);
 				$cell->setAlignment('right');
 				$cell->setFontWeight('bold');
 				$cell->setAlignment('center');
@@ -479,13 +497,13 @@ public function postoutpatient(Request $request)
 				$cell->setFontWeight('bold');
 			});
 
-			$sheet->cell('B48', function($cell) {
+			$sheet->cell('C48', function($cell) {
 				$cell->setValue('Prepared by:');
 				$cell->setFontWeight('bold');
 			});
 
 			$sheet->cell('F48', function($cell) {
-				$cell->setValue('Date:');
+				$cell->setValue('Date: ');
 				$cell->setFontWeight('bold');
 			});
 
@@ -732,6 +750,6 @@ public function postoutpatient(Request $request)
 
 		});
 
-})->export('xlsx');
+})->download('xlsx');
 }
 }	
