@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLabsTable extends Migration
+class CreateRadiosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,9 @@ class CreateLabsTable extends Migration
      */
     public function up()
     {
-        Schema::create('labs', function (Blueprint $table) {
+        Schema::create('radios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('patient_id');
-            $table->string('specimen')->nullable();
-            $table->string('investigation_request')->nullable();
-            $table->string('report')->nullable();
-            $table->integer('status');
-            $table->integer('from_user');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateLabsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('labs');
+        Schema::dropIfExists('radios');
     }
 }

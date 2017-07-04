@@ -7,7 +7,7 @@ use cHealth\Http\Controllers\Controller;
 use cHealth\Setting;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
-
+use Carbon\Carbon;
 
 class SettingsController extends Controller
 {
@@ -15,9 +15,7 @@ class SettingsController extends Controller
     {
     	$page = 'Settings';
 
-    	$setting = Setting::first();
-
-    	return view('core.pages.settings', compact('page', 'setting'));
+    	return view('core.pages.settings', compact('page'));
     }
 
     public function updatesettings(Request $request)
@@ -41,9 +39,44 @@ class SettingsController extends Controller
         	'county'				=> $county
         ]);
 
-        return redirect('settings')->with('success', 'The settings have been updated successfully.');
+        return redirect('main-settings')->with('success', 'The settings have been updated successfully.');
     }
 
+    public function mainsettings()
+    {
+        $page = 'Main Settings';
+
+        $setting = Setting::first();
+
+        return view('core.pages.main-settings', compact('page', 'setting'));
+    }
+
+    public function aboutchealth()
+    {
+        $page = 'About cHealth';
+
+        $time_now = Carbon::now();
+
+        $year = $time_now->year;
+
+
+        return view('core.pages.about-chealth', compact('page', 'year'));
+    }
+
+    public function chealthlicense()
+    {
+        $page = 'Software License';
+
+        return view('core.pages.chealth-license', compact('page'));
+    }
+
+    public function upgradechealth()
+    {
+        $page = 'Upgrade cHealth';
+
+        return view('core.pages.upgrade', compact('page'));
+    }
+    
     public function updatechealth()
     {   
         $response = null;
@@ -65,7 +98,7 @@ class SettingsController extends Controller
             } else {
 
                 $data = 'Sorry, the update was not successful.';
-
+                //return dd($process->getErrorOutput());
             }
 
         } else {
@@ -74,6 +107,6 @@ class SettingsController extends Controller
         
         }
 
-        return redirect('settings')->with('info', $data);
-    }
+        return redirect('update-chealth')->with('info', $data);
+    }   
 }

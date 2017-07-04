@@ -4,7 +4,7 @@
     <div class="padded-full">
 
         <ul class="list">
-            <li><strong>Outpatient No:</strong> {{ $patient->op_no }}</li>
+            <li><strong>Outpatient/Inpatient No:</strong> {{ $patient->op_no }}</li>
             <li><strong>Age:</strong> {{ $patient->age }} years old</li>
             <li><strong>Gender:</strong> {{ $patient->gender }}</li>
             
@@ -33,7 +33,7 @@
 
         @if(!$waitlist)
             <a href="{{ url('waitlist', $patient->id) }}">
-                <button class="btn fit-parent" style="margin-top: 15px;">Add to Waitlist</button>
+                <button class="btn fit-parent" style="margin-top: 15px;">Add to Patient Waitlist</button>
             </a>
         @else
             <a href="{{ url('consult', $patient->id) }}">

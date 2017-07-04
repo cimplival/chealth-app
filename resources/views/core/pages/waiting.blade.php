@@ -10,6 +10,17 @@
 
 @section('body')
     <div class="padded-full">
+    	<ul class="list">
+	        <li class="divider text-center">
+	        	<p>
+	        		@if(count($waitings)>0)
+	        			Waiting Patients
+	        		@else 
+	        			No Waiting Patients
+	        		@endif
+	        	</p>
+	        </li>
+	    </ul>
 		<ul class="list">
 			@foreach($waitings as $key=>$waiting)
 			<li class="padded-full">

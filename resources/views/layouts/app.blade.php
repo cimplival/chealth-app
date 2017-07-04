@@ -19,7 +19,6 @@
         <script src="{{ asset('js/components/side-panels.js') }}"></script>
         <script src="{{ asset('js/components/forms.js') }}"></script>
         <script src="{{ asset('js/components/notifications.js') }}"></script>
-        <script type="text/javascript" src="js/screenfull.min.js"></script>
     </head>
     <body>
 
@@ -35,7 +34,7 @@
                     <li><a class="padded-list" href="{{ url('register') }}">Register Patient</a></li>
                     <li><a class="padded-list" href="{{ url('waiting') }}">Patient Waitlist</a></li>
                     <li><a class="padded-list" href="{{ url('/') }}">Medical Records</a></li>
-                    <li><a class="padded-list" href="{{ url('labs') }}">Lab Investigations</a></li>
+                    <li><a class="padded-list" href="{{ url('labs') }}">Investigations</a></li>
                     <li><a class="padded-list" href="{{ url('reports') }}">Reports</a></li>
                     <li><a class="padded-list" href="{{ url('settings') }}">Settings</a></li>
                 </ul>

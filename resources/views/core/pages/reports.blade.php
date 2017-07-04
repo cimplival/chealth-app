@@ -11,8 +11,8 @@
 @section('body')
     <div class="padded-full">
 		<ul class="list">
-			<li class="padded-full"><a href="{{ url('diseases-reports') }}">Diseases Report</a></li>
-			<li class="padded-full"><a href="{{ url('outpatient-reports') }}">Outpatient Report</a></li>
+			<li><a href="{{ url('moh-reports') }}">MOH 705 Reports</a></li>
+			<li><a href="{{ url('outpatient-reports') }}">Outpatient Report</a></li>
 		</ul>
 	</div>
 @endsection

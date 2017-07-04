@@ -23,7 +23,7 @@
 @section('body')
 <div class="padded-full">
     <ul class="list">
-        <li><strong>Outpatient No:</strong> {{ $patient->op_no }}</li>
+        <li><strong>Outpatient/Inpatient No:</strong> {{ $patient->op_no }}</li>
         <li><strong>Age:</strong> {{ $patient->age }} years old</li>
         <li><strong>Gender:</strong> {{ $patient->gender }}</li>
         @if($patient->phone)

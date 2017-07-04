@@ -13,12 +13,9 @@ class WaitingController extends Controller
     	$page = 'Patient Waitlist';
     	$waitings = Waiting::whereStatus(1)->get();
 
-        $past_waitings = Waiting::whereStatus(0)->get();
+        $past_waitings = Waiting::whereStatus(0)->latest()->limit(10)->get();
 
-    	if(count($waitings)==0)
-        {
-            $page = 'No Waiting Patients';
-        }elseif(count($waitings)==1)
+    	if(count($waitings)==1)
         {
             $message = 'There is 1 waiting patient.';
         }

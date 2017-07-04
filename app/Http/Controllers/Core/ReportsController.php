@@ -22,9 +22,9 @@ class ReportsController extends Controller
 
 	public function diseasesreports()
 	{
-		$page = 'Diseases Report';
+		$page = 'MOH 705 Reports';
 
-		return view('core.pages.diseases-reports', compact('page'));
+		return view('core.pages.moh-reports', compact('page'));
 	}
 
 	public function outpatientreports()

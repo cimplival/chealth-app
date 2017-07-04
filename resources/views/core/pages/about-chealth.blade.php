@@ -22,15 +22,13 @@
 
 @section('body')
 	<div class="padded-full">
-		<a href="{{ url('main-settings') }}">
-	        <button class="btn fit-parent primary" style="margin-top: 10px;">Main settings</button>
-	    </a>
-	    <a href="{{ url('about-chealth') }}">
-	        <button class="btn fit-parent primary" style="margin-top: 10px;">About cHealth</button>
-	    </a>
-	    <a href="{{ url('upgrade-chealth')}}">
-	        <button class="btn fit-parent primary" style="margin-top: 10px;">Upgrade cHealth</button>
-	    </a>
+		<div class="padded-full text-center">
+			<h5 style="padding-top: 25px;"><strong>{{\Tremby\LaravelGitVersion\GitVersionHelper::getVersion() }}:</strong></h5>
+			<p>Copyright © {{ $year }}. Cimplicity Apps</p>
+			<p>Website: <a href="http://www.chealth.io">www.chealth.io</a></p>
+			<p>cHealth is released under the cHealth license which can be found <a href="{{ url('chealth-license') }}">here</a>.</p>
+		</div>
+		
 	</div>
 @endsection
 

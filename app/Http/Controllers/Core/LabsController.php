@@ -14,9 +14,18 @@ class LabsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function investigations($id)
+    {
+        $page                       = 'Request Investigation';
+
+        $patient                    = Patient::whereId($id)->first();
+
+        return view('core.pages.request-investigations', compact('page', 'patient'));
+    }
+
     public function index()
     {
-        $page                       = 'Lab Investigations';
+        $page                       = 'Investigations';
 
         $labs                       = Lab::whereStatus(0)->get();
 
@@ -64,7 +73,6 @@ class LabsController extends Controller
         $patient_id = $lab->patient->id;
 
         return redirect()->route('consult', [$patient_id])->with('success', 'Lab investigation requested successfully.');
-
     }
 
     /**
@@ -86,7 +94,7 @@ class LabsController extends Controller
      */
     public function edit($id)
     {
-        $page                       = 'Update Lab Investigation';
+        $page                       = 'Update Investigation';
 
         $lab                        = Lab::whereId($id)->first();
 
@@ -104,15 +112,18 @@ class LabsController extends Controller
     {
         $this->validate($request, [
                 'specimen'                => 'required|min:1',
-                'investigation_request'   => 'required|min:1|max:256'
+                'investigation_request'   => 'required|min:1|max:256',
+                'report'                  => 'required|min:1'
         ]);
 
         $specimen                         = $request->input('specimen');
         $investigation_request            = $request->input('investigation_request');
+        $report                           = $request->input('report');
 
         $patient                          = Lab::whereId($id)->update([
             'specimen'                    => $specimen,
             'investigation_request'       => $investigation_request,
+            'report'                      => $report,
             'status'                      => 1,
             'from_user'                   => 1
         ]);
@@ -131,7 +142,7 @@ class LabsController extends Controller
     {
         $lab                              = Lab::whereId($id)->first();
 
-        $page                             = 'Delete Lab Record';
+        $page                             = 'Delete Investigation';
 
         return view('core.pages.delete-lab', compact('page', 'lab'));
     }

@@ -21,7 +21,7 @@
 @endsection
 
 @section('body')
-<form  method="POST" action="{{ url('diseases-reports') }}">
+<form  method="POST" action="{{ url('moh-reports') }}">
 	{{ csrf_field() }}
 	<div class="padded-full">
 		<select name="month">
@@ -54,14 +54,14 @@
 			<li class="padded-for-list">
 				<label class="radio">
 					<input type="radio" name="period" value="under5" @if(old('period') == "under5") checked @endif>
-					Report for Under 5 Years
+					MOH 705A
 					<span></span>
 				</label>
 			</li>
 			<li class="padded-for-list">
 				<label class="radio">
 					<input type="radio" name="period" value="over5" @if(old('period') == "over5") checked @endif>
-					Report for Over 5 Years
+					MOH 705B
 					<span></span>
 				</label>
 			</li>

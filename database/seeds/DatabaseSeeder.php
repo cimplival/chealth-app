@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call('DiseasesSeeder');
         $this->call('TagsSeeder');
         $this->call('SettingSeeder');
+        $this->call('RadiosSeeder');
 
         Model::reguard();
     }
