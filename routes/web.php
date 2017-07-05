@@ -98,6 +98,39 @@ Route::get('/radiology-add/{lab_id}', 'Core\RadiologyController@addradiology');
 Route::post('/radiology-add/{lab_id}', 'Core\RadiologyController@postaddradiology');
 
 
+/*	Pharmacy Routes
+|--------------------------------------------------------------------------| */
+Route::get('/pharmacy', 'Core\DrugsController@getpharmacy');
+
+Route::get('/medications', 'Core\DrugsController@getmedications');
+
+Route::get('/medication/{id}', 'Core\DrugsController@getmedication');
+
+Route::post('/medication/{id}', 'Core\DrugsController@postmedication');
+
+Route::post('/delete-medication/{id}', 'Core\DrugsController@deletemedication');
+
+Route::resource('drugs', 'Core\DrugsController', ['only' => [
+		   'create', 'edit'
+		]]);
+
+Route::get('/add-drug', 'Core\DrugsController@adddrug');
+
+Route::post('/add-drug', 'Core\DrugsController@postadddrug');
+
+Route::post('/search-drug', 'Core\DrugsController@postsearchdrug');
+
+Route::get('/drug/{id}', 'Core\DrugsController@getdrug')->name('drug');
+
+Route::post('/add-stock/{id}', 'Core\DrugsController@addstock');
+
+Route::post('/remove-stock/{id}', 'Core\DrugsController@removestock');
+
+Route::get('/delete-drug/{id}', 'Core\DrugsController@deletedrug');
+
+Route::post('/delete-drug/{id}', 'Core\DrugsController@postdeletedrug');
+
+
 /*	Reports Routes
 |--------------------------------------------------------------------------| */
 Route::get('/reports', 'Core\ReportsController@index');

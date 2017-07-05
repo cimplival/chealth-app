@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call('TagsSeeder');
         $this->call('SettingSeeder');
         $this->call('RadiosSeeder');
+        $this->call('FormulationsSeeder');
+        $this->call('DrugsSeeder');
 
         Model::reguard();
     }

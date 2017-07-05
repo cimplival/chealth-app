@@ -23,7 +23,7 @@
 @section('body')
 	<div class="padded-full">
 		<div class="padded-full text-center">
-			<h5 style="padding-top: 25px;"><strong>{{\Tremby\LaravelGitVersion\GitVersionHelper::getNameAndVersion() }}:</strong></h5>
+			<h5 style="padding-top: 25px;"><strong>cHealth Version: {{\Tremby\LaravelGitVersion\GitVersionHelper::getVersion() }}:</strong></h5>
 			<p>Copyright © {{ $year }}. Cimplicity Apps</p>
 			<p>Website: <a href="http://www.chealth.io" target="_blank">www.chealth.io</a></p>
 			<p>cHealth is released under the cHealth license which can be found <a href="{{ url('chealth-license') }}">here</a>.</p>
