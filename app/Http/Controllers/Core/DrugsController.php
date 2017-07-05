@@ -21,21 +21,6 @@ class DrugsController extends Controller
         return view('core.pages.pharmacy', compact('page', 'drugs', 'no_of_drugs'));
     }
 
-    public function getmedications()
-    {
-    	
-    }
-
-    public function postmedication()
-    {
-    	
-    }
-
-    public function deletemedication()
-    {
-    	
-    }
-
     public function postsearchdrug(Request $request)
     {
     	$this->validate($request, [

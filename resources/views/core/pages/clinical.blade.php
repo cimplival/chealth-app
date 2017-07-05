@@ -96,6 +96,19 @@
                         {{$clinical->management}}
                     </p>
                     @endif
+
+                    @if(count($medications)>0)
+                        <h5><strong>Medications:</strong></h5>
+                        <ul>
+                            @foreach($medications->where('clinical_id',$clinical->id) as $medication)
+                            <li class="padded-full">
+                                {{ $medication->drug->name }} 
+                                ({{ $medication->quantity }} x {{ $medication->times_a_day }} x {{ $medication->no_of_days }})
+                                <a href="{{ url('delete-medication', $medication->id) }}" class="btn pull-right icon icon-close"></a>
+                            </li>
+                            @endforeach
+                        </ul>
+                    @endif
                 </div>
                 <ul class="list">
                     <li class="text-center">
@@ -207,7 +220,7 @@
     @endif
 
     <a href="{{ url('update-patient', $patient->id) }}">
-        <button class="btn fit-parent primary" style="margin-top: 10px;">UPDATE Patient Details</button>
+        <button class="btn fit-parent primary" style="margin-top: 10px;">Update Patient Details</button>
     </a>
 
     <a href="{{ url('confirm-patient', $patient->id) }}"><button style="margin-top: 10px;" class="btn fit-parent negative">Delete Medical Record</button></a>

@@ -14,6 +14,7 @@ use cHealth\Tag;
 use cHealth\Attendance;
 use cHealth\Referral;
 use cHealth\Disease;
+use cHealth\Drug;
 use Session;
 use Phpml\Classification\NaiveBayes;
 use Phpml\CrossValidation\StratifiedRandomSplit;
@@ -92,7 +93,9 @@ class ClinicalsController extends Controller
 
         $diseases               = Disease::get();
 
-        return view('core.pages.new-history', compact('page', 'patient', 'new-history', 'diseases'));
+        $drugs                  = Drug::get();
+
+        return view('core.pages.new-history', compact('page', 'patient', 'new-history', 'diseases', 'drugs'));
     }
 
 
@@ -100,7 +103,7 @@ class ClinicalsController extends Controller
     {
         $this->validate($request, [
                 'patient_id'       => 'required|numeric|min:1',
-                'classify_disease' => 'required'
+                'classify_disease' => 'required',
         ]);
 
         $patient_id             = $request->input('patient_id');
@@ -258,6 +261,8 @@ class ClinicalsController extends Controller
                 'status'            => 0
             ]);
 
+
+
         $patient                = Patient::whereId($patient_id)->first();
 
         $patient_id             = $patient->id;
@@ -266,7 +271,9 @@ class ClinicalsController extends Controller
 
         $clinicals              = Clinical::where('patient_id', $patient_id)->get();
 
-        return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history saved successfully.');
+        $id                     = $clinical->id;
+
+        return redirect()->route('confirm-administer', [$id])->with('success', 'Clinical history saved successfully!');
     }
 
 
@@ -304,7 +311,7 @@ class ClinicalsController extends Controller
 
         $patient_id = Clinical::where('id', $clinical_id)->value('patient_id');
 
-        return redirect()->route('consult', [$patient_id])->with('success', 'Clinical history updated successfully.');
+        return redirect()->route('new-medication', [$clinical_id])->with('success', 'Clinical history updated successfully.');
     }
 
     public function deletehistory($id)

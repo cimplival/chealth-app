@@ -9,6 +9,7 @@ use cHealth\Waiting;
 use cHealth\Clinical;
 use cHealth\Referral;
 use cHealth\Lab;
+use cHealth\Medication;
 
 class PatientsController extends Controller
 {
@@ -75,9 +76,11 @@ class PatientsController extends Controller
 
         $referrals                  = Referral::where('patient_id', $id)->get();
 
+        $medications                = Medication::get();
+
         $all_referrals              = ['From Other Health Facilities', 'To Other Health Facilities', 'From Community Unit', 'To Community Unit'];
 
-        return view('core.pages.clinical', compact('page', 'clinicals', 'patient', 'labs', 'referrals', 'all_referrals'));
+        return view('core.pages.clinical', compact('page', 'clinicals', 'patient', 'labs', 'referrals', 'all_referrals', 'medications'));
     }
 
     public function view($id)

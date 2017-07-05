@@ -17,4 +17,5 @@ class Clinical extends Model
 	{
 	    return $this->hasMany('cHealth\Attendance');
 	}
+
 }

@@ -62,7 +62,7 @@
 		</div>
 		<div class="padded-full">
 			<select name="classify_disease">
-				<option selected value='' disabled>Select a disease classification</option>
+				<option selected value='' disabled>Select a Disease Classification</option>
 			    @foreach($diseases as $disease)
 				    <option value='{{$disease->id}}'>{{$disease->name}}</option>
 				@endforeach

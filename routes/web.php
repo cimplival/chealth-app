@@ -98,17 +98,29 @@ Route::get('/radiology-add/{lab_id}', 'Core\RadiologyController@addradiology');
 Route::post('/radiology-add/{lab_id}', 'Core\RadiologyController@postaddradiology');
 
 
+/*	Medication Routes
+|--------------------------------------------------------------------------| */
+Route::get('/medications', 'Core\MedicationsController@getmedications');
+
+Route::post('/search-medication', 'Core\MedicationsController@searchmedication');
+
+Route::get('/confirm-administer/{id}', 'Core\MedicationsController@confirmadminister')->name('confirm-administer');
+
+Route::get('/new-medication/{id}', 'Core\MedicationsController@newmedication')->name('new-medication');
+
+Route::post('/add-medication/{id}', 'Core\MedicationsController@addmedication');
+
+Route::get('/dispense-medication/{id}', 'Core\MedicationsController@getdispensemedication')->name('medications');
+
+Route::post('/dispense-medication/{id}', 'Core\MedicationsController@postdispensemedication');
+
+Route::get('/delete-medication/{id}', 'Core\MedicationsController@deletemedication');
+
+Route::post('/delete-medication/{id}', 'Core\MedicationsController@postdeletemedication');
+
 /*	Pharmacy Routes
 |--------------------------------------------------------------------------| */
 Route::get('/pharmacy', 'Core\DrugsController@getpharmacy');
-
-Route::get('/medications', 'Core\DrugsController@getmedications');
-
-Route::get('/medication/{id}', 'Core\DrugsController@getmedication');
-
-Route::post('/medication/{id}', 'Core\DrugsController@postmedication');
-
-Route::post('/delete-medication/{id}', 'Core\DrugsController@deletemedication');
 
 Route::resource('drugs', 'Core\DrugsController', ['only' => [
 		   'create', 'edit'
@@ -129,7 +141,6 @@ Route::post('/remove-stock/{id}', 'Core\DrugsController@removestock');
 Route::get('/delete-drug/{id}', 'Core\DrugsController@deletedrug');
 
 Route::post('/delete-drug/{id}', 'Core\DrugsController@postdeletedrug');
-
 
 /*	Reports Routes
 |--------------------------------------------------------------------------| */
